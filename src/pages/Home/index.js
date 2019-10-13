@@ -1,10 +1,15 @@
 import React from 'react'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { ItemPost } from '../ItemPost'
 import { App } from '../App'
 =======
 import ItemPost from '../ItemPost'
 import App from '../App'
+=======
+import { ItemPost } from '../ItemPost'
+import { App } from '../App'
+>>>>>>> fix conflict
 import Login from '../Login'
 import Signup from '../Signup'
 >>>>>>> adding log in page and signup page
