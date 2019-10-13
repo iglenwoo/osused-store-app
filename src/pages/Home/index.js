@@ -1,6 +1,7 @@
 import React from 'react'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { ItemPost } from '../ItemPost'
 import { App } from '../App'
 =======
@@ -13,6 +14,12 @@ import { App } from '../App'
 import Login from '../Login'
 import Signup from '../Signup'
 >>>>>>> adding log in page and signup page
+=======
+import Login from '../Login'
+import Signup from '../Signup'
+import { ItemPost } from '../ItemPost'
+import { App } from '../App'
+>>>>>>> fix conflict
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 export function Home() {
