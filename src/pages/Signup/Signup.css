@@ -1,0 +1,25 @@
+.Signup {
+  text-align: center;
+}
+
+.Form1 {
+  background-color: #282c34;
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Form2 {
+  background-color: #282c34;
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
