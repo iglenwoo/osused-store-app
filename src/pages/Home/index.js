@@ -1,6 +1,6 @@
 import React from 'react'
-import ItemPost from '../ItemPost'
-import App from '../App'
+import { ItemPost } from '../ItemPost'
+import { App } from '../App'
 import Login from '../Login'
 import Signup from '../Signup'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
