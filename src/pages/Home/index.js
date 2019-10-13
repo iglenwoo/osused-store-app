@@ -1,6 +1,13 @@
 import React from 'react'
+<<<<<<< HEAD
 import { ItemPost } from '../ItemPost'
 import { App } from '../App'
+=======
+import ItemPost from '../ItemPost'
+import App from '../App'
+import Login from '../Login'
+import Signup from '../Signup'
+>>>>>>> adding log in page and signup page
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 export function Home() {
@@ -18,6 +25,9 @@ export function Home() {
           <li>
             <Link to="/ItemPost">ItemPost</Link>
           </li>
+          <li>
+            <Link to="/Login">Login</Link>
+          </li>
         </ul>
 
         <Switch>
@@ -26,6 +36,12 @@ export function Home() {
           </Route>
           <Route path="/ItemPost">
             <ItemPost />
+          </Route>
+          <Route path="/Login">
+            <Login />
+          </Route>
+          <Route path="/Signup">
+            <Signup />
           </Route>
         </Switch>
       </div>
