@@ -1,43 +1,73 @@
 import React from 'react'
 import './ItemPost.css'
+import { InputLabel, SelectionLabel } from '../../components/Label/index'
 
-export default class ItemInfo extends React.Component {
+export class ItemPost extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.options = [
+      { value: 'chocolate', label: 'Chocolate' },
+      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'vanilla', label: 'Vanilla' },
+    ]
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    var result = fetch('http://localhost:4000/post-sell-item', {
+      method: 'POST',
+      body: data,
+    })
+
+    result
+      .then(response => response.json())
+      .then(responseData => {
+        if (responseData.status === 0) alert('Update Success!!')
+        else alert('Update fault!!')
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  }
+
   render() {
     return (
-      <div className="container">
-        <form className="item-register-form">
-          <h3>Selling Register</h3>
-
-          <label htmlFor="Enter Item Name">
-            <b>Item Name</b>
-          </label>
-          <input type="text" placeholder="Item Name" />
-          <label htmlFor="Enter Catagory">
-            <b>Catagory</b>
-          </label>
-          <input type="hidden" placeholder="Catagory" />
-          <select>
-            <option value="electronics">Electronics</option>
-            <option value="books">Books</option>
-            <option value="furniture">Furniture</option>
-          </select>
-
-          <label htmlFor="Location">
-            <b>Location</b>
-          </label>
-          <input type="text" placeholder="Enter Location" />
-          <label htmlFor="Price">
-            <b>Price</b>
-          </label>
-          <input type="text" placeholder="Enter Price" />
-          <label htmlFor="Description">
-            <b>Description</b>
-          </label>
-          <input type="text" placeholder="Description" />
-
-          <button className="registerbtn">Register</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <h3>Selling Register</h3>
+        <InputLabel
+          id="name"
+          name="name"
+          text="Item Name"
+          placeholder="Enter Item Name"
+        />
+        <SelectionLabel
+          id="category"
+          name="category"
+          text="Category"
+          options={this.options}
+        />
+        <InputLabel
+          id="location"
+          name="location"
+          text="Location"
+          placeholder="Enter Location"
+        />
+        <InputLabel
+          id="price"
+          name="price"
+          text="Price"
+          placeholder="Enter Price"
+        />
+        <InputLabel
+          id="description"
+          name="description"
+          text="Description"
+          placeholder="Enter Description"
+        />
+        <button>Register</button>
+      </form>
     )
   }
 }
