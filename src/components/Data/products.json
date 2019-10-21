@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Purchase #1",
+    "category": "Category #4",
+    "location": "Location #1",
+    "price": 100,
+    "description": "Description#1 Description#1 Description#1 Description#1 Description#1 Description#1 Description#1 Description#1 Description#1",
+    "ownerName": "ownerName#1",
+    "ownerMail": "ownerMail#1"
+  },
+  {
+    "id": 2,
+    "name": "Purchase #2",
+    "category": "Category #2",
+    "location": "Location #2",
+    "price": 200,
+    "description": "Description#2 Description#2 Description#2 Description#2 Description#2 Description#2 Description#2 Description#2 Description#2",
+    "ownerName": "ownerName#2",
+    "ownerMail": "ownerMail#2"
+  },
+  {
+    "id": 3,
+    "name": "Purchase #3",
+    "category": "Category #3",
+    "location": "Location #3",
+    "price": 300,
+    "description": "Description#3 Description#1 Description#3 Description#3 Description#3 Description#3 Description#3 Description#3 Description#3",
+    "ownerName": "ownerName#3",
+    "ownerMail": "ownerMail#3"
+  },
+  {
+    "id": 4,
+    "name": "Purchase #4",
+    "category": "Category #4",
+    "location": "Location #4",
+    "price": 400,
+    "description": "Description#4 Description#4 Description#4 Description#4 Description#4 Description#4 Description#4 Description#4 Description#4",
+    "ownerName": "ownerName#4",
+    "ownerMail": "ownerMail#4"
+  }
+]

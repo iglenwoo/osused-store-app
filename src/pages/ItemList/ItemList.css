@@ -1,0 +1,48 @@
+.navigation-bar {
+  background: black;
+}
+
+.btn-area {
+  width: 22%;
+  min-width: 350px;
+  padding: 3px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.btn-area button {
+  text-align: center;
+  height: 30px;
+  cursor: pointer;
+  padding: 0px 8px;
+  border-radius: 20px;
+  background-color: lightgray;
+  margin: 3px;
+  border-width: 2px;
+  border-style: none;
+}
+
+.btn-area button:hover,
+btn-area button:focus {
+  background: darkgrey;
+}
+
+.makeStyles-wrapper-1 {
+  display: inline;
+}
+
+.addItem {
+  display: inline;
+}
+
+.add-mdl {
+  width: 500px;
+}
+
+.dropdown {
+  display: inline;
+}
+
+.item-elements {
+  place-content: center;
+}
