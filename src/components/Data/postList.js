@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PostData from '../Data/products.json'
 import './postList.css'
 
@@ -10,9 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import { BrowserRouter as Router } from 'react-router-dom'
 import Modal from '@material-ui/core/Modal'
-import { ItemPost } from '../../pages/ItemPost'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
