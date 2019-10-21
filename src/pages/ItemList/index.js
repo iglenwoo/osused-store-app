@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Typography, Box } from '@material-ui/core'
 import { ItemPost } from '../ItemPost'
 import { PostList } from '../../components/Data/postList'
@@ -42,10 +42,10 @@ const useStyles = makeStyles(theme => ({
 
 export const ItemList = () => {
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [open, setOpen] = React.useState(false)
-  const [openSignUp, setOpenSignUp] = React.useState(false)
-  const [openAddItem, setOpenSAddItem] = React.useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [open, setOpen] = useState(false)
+  const [openSignUp, setOpenSignUp] = useState(false)
+  const [openAddItem, setOpenSAddItem] = useState(false)
 
   const handleOpen = event => {
     setAnchorEl(event.currentTarget)
@@ -61,11 +61,11 @@ export const ItemList = () => {
     if (state === 'SignIn') setOpen(false)
     if (state === 'ASignUp') setOpenSignUp(false)
     if (state === 'AddItem') setOpenSAddItem(false)
-    if (state == 'Menu') setAnchorEl(null)
+    if (state === 'Menu') setAnchorEl(null)
   }
 
   return (
-    <Router>
+    <>
       <div className="navigation-bar">
         <div class="btn-area">
           <ClickAwayListener onClickAway={handleClickAway('SignIn')}>
@@ -123,7 +123,7 @@ export const ItemList = () => {
               onClose={handleClickAway('AddItem')}
             >
               <div className={classes.paper}>
-                <ItemPost></ItemPost>
+                <ItemPost />
               </div>
             </Modal>
           </div>
@@ -166,6 +166,6 @@ export const ItemList = () => {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </>
   )
 }
