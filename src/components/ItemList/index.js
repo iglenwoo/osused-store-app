@@ -1,6 +1,5 @@
 import React from 'react'
-import PostData from '../Data/products.json'
-import './postList.css'
+import './ItemList.css'
 
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -40,13 +39,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export function PostList() {
+export function ItemList({ items }) {
   const classes = useStyles()
 
   const [openCard, setOpenCard] = React.useState(false)
   const [openPrice, setOpenPrice] = React.useState(false)
 
-  function handleClick(state, index) {
+  function handleClick(state) {
     if (state === 'card') setOpenCard(prev => !prev)
     if (state === 'price') setOpenPrice(prev => !prev)
   }
@@ -58,7 +57,7 @@ export function PostList() {
 
   return (
     <div className="item-card-list">
-      {PostData.map((postDetail, index) => {
+      {items.map((item, index) => {
         return (
           <div className="item-card" key={index}>
             <Card className={classes.card}>
@@ -70,26 +69,26 @@ export function PostList() {
                   className={classes.media}
                   image="/static/images/cards/contemplative-reptile.jpg"
                   title="Item List"
-                  key={postDetail.name}
-                  id={postDetail.name}
+                  key={item.name}
+                  id={item.name}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {postDetail.name}
+                    {item.name}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="h3"
                   >
-                    {postDetail.price}
+                    {item.price}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    {postDetail.description}
+                    {item.description}
                   </Typography>
                 </CardContent>
                 <Modal
@@ -101,15 +100,15 @@ export function PostList() {
                   <div className={classes.paper}>
                     <h1>Item Info</h1>
                     <h2>Item name</h2>
-                    <p>{postDetail.name}</p>
+                    <p>{item.name}</p>
                     <h2>Item Price</h2>
-                    <p>{postDetail.price}</p>
+                    <p>{item.price}</p>
                     <h2>Item Category</h2>
-                    <p>{postDetail.category}</p>
+                    <p>{item.category}</p>
                     <h2>Item Location</h2>
-                    <p>{postDetail.location}</p>
+                    <p>{item.location}</p>
                     <h2>Item Description</h2>
-                    <p>{postDetail.description}</p>
+                    <p>{item.description}</p>
                   </div>
                 </Modal>
               </CardActionArea>
@@ -132,9 +131,9 @@ export function PostList() {
                 >
                   <div className={classes.paper}>
                     <h1>Excelent choice!</h1>
-                    <h2>Owner Name </h2> <p>{postDetail.ownerName}</p>
+                    <h2>Owner Name </h2> <p>{item.ownerName}</p>
                     <h2>Owner Mail </h2>
-                    <p>{postDetail.ownerMail}</p>
+                    <p>{item.ownerMail}</p>
                   </div>
                 </Modal>
               </CardActions>

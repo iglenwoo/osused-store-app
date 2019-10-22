@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import './App.css'
 import { ItemPost } from '../../pages/ItemPost'
-import { ItemList } from '../../pages/ItemList'
+import { ItemListPage } from '../../pages/ItemListPage'
 import Login from '../../pages/Login'
 import Signup from '../../pages/Signup'
+import ButtonAppBar from '../ButtonAppBar'
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return (
@@ -30,8 +31,11 @@ export const App = () => {
 
   return (
     <Router>
+      <ButtonAppBar />
       <Switch>
-        <Route path="/ItemList" component={ItemList} />
+        <Route path="/ItemList">
+          <ItemListPage />
+        </Route>
         <PrivateRoute path="/ItemPost" authed={authed} component={ItemPost} />
         <PrivateRoute path="/Login" authed={authed}>
           <Login />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { PostList } from './postList'
+import { Index } from './postList'
 
 it('renders postlist', () => {
-  shallow(<PostList />)
+  shallow(<Index />)
 })
