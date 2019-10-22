@@ -47,9 +47,24 @@ export default function Login(props) {
     return email.length > 0 && password.length > 0
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-  // }
+  function handleSubmit(event) {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    var result = fetch('http://localhost:4000/user/login', {
+      method: 'POST',
+      body: data,
+    })
+
+    result
+      .then(response => response.json())
+      .then(responseData => {
+        if (responseData.status === 0) alert('Update Success!!')
+        else alert('Update fault!!')
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  }
 
   // function signupClick() {
   //   history.push('/Signup')
@@ -67,7 +82,7 @@ export default function Login(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -99,6 +114,7 @@ export default function Login(props) {
             label="Remember me"
           />
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             disabled={!validateForm()}

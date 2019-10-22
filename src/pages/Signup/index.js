@@ -55,9 +55,24 @@ export default function Signup(props) {
     )
   }
 
-  //  function handleSubmit(event) {
-  //    event.preventDefault()
-  //  }
+  function handleSubmit(event) {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    var result = fetch('http://localhost:4000/user/signup', {
+      method: 'POST',
+      body: data,
+    })
+
+    result
+      .then(response => response.json())
+      .then(responseData => {
+        if (responseData.status === 0) alert('Update Success!!')
+        else alert('Update fault!!')
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  }
 
   const classes = useStyles()
   return (
@@ -68,7 +83,7 @@ export default function Signup(props) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
