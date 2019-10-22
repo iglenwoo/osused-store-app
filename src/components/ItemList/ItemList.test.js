@@ -1,7 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Index } from './postList'
+import { ItemList } from './index'
 
 it('renders postlist', () => {
-  shallow(<Index />)
+  const mockItems = []
+  shallow(<ItemList items={mockItems} />)
 })

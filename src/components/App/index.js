@@ -1,12 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import './App.css'
 import { ItemPost } from '../../pages/ItemPost'
 import { ItemListPage } from '../../pages/ItemListPage'
-import Login from '../../pages/Login'
-import Signup from '../../pages/Signup'
-import ButtonAppBar from '../ButtonAppBar'
+import { Login } from '../../pages/Login'
+import { Signup } from '../../pages/Signup'
+import { ButtonAppBar } from '../ButtonAppBar'
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return (

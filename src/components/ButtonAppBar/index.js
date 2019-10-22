@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function ButtonAppBar() {
+export function ButtonAppBar() {
   const [auth, setAuth] = React.useState(true)
 
   const signOut = () => {
