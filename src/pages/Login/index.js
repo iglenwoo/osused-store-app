@@ -41,6 +41,7 @@ export default function Login(props) {
   const classes = useStyles()
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
+
   // let history = useHistory()
 
   function validateForm() {
@@ -50,29 +51,29 @@ export default function Login(props) {
   function handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.target)
-    var result = fetch('http://localhost:4000/user/login', {
+
+    let jsonObject = {}
+    for (const [key, value] of data.entries()) {
+      jsonObject[key] = value
+    }
+    let result = fetch('http://localhost:4000/users/login', {
       method: 'POST',
-      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonObject),
     })
 
     result
-      .then(response => response.json())
-      .then(responseData => {
-        if (responseData.status === 0) alert('Update Success!!')
-        else alert('Update fault!!')
+      .then(response => {
+        if (response.status !== 200) alert(response.statusText)
+        else alert('Login Success!!')
       })
       .catch(function(err) {
         console.log(err)
       })
   }
-
-  // function signupClick() {
-  //   history.push('/Signup')
-  // }
-
-  // function LoginClick() {
-  //    history.push('/ItemPost')
-  // }
 
   return (
     <Container component="main" maxWidth="xs">
