@@ -43,7 +43,7 @@ export default function Signup(props) {
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
   const [password, setpassword] = useState('')
-  const [checkv, setcheckv] = useState('')
+  const [checkv, setcheckv] = useState(false)
 
   function validateForm() {
     return (
@@ -55,9 +55,32 @@ export default function Signup(props) {
     )
   }
 
-  //  function handleSubmit(event) {
-  //    event.preventDefault()
-  //  }
+  function handleSubmit(event) {
+    event.preventDefault()
+    const data = new FormData(event.target)
+    let jsonObject = {}
+    for (const [key, value] of data.entries()) {
+      jsonObject[key] = value
+    }
+    console.log(jsonObject)
+    let result = fetch('http://localhost:4000/users/signup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonObject),
+    })
+
+    result
+      .then(response => {
+        if (response.status !== 200) alert(response.statusText)
+        else alert('Login Success!!')
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  }
 
   const classes = useStyles()
   return (
@@ -68,7 +91,7 @@ export default function Signup(props) {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -129,7 +152,9 @@ export default function Signup(props) {
                 control={
                   <Checkbox
                     checked={checkv}
-                    onChange={e => setcheckv(e.target.value)}
+                    onChange={e => {
+                      setcheckv(e.target.checked)
+                    }}
                     value="allowExtraEmails"
                     color="primary"
                   />
@@ -139,7 +164,7 @@ export default function Signup(props) {
             </Grid>
           </Grid>
           <Button
-            //type="submit"
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"

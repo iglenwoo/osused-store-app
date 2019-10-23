@@ -41,23 +41,39 @@ export default function Login(props) {
   const classes = useStyles()
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
+
   // let history = useHistory()
 
   function validateForm() {
     return email.length > 0 && password.length > 0
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-  // }
+  function handleSubmit(event) {
+    event.preventDefault()
+    const data = new FormData(event.target)
 
-  // function signupClick() {
-  //   history.push('/Signup')
-  // }
+    let jsonObject = {}
+    for (const [key, value] of data.entries()) {
+      jsonObject[key] = value
+    }
+    let result = fetch('http://localhost:4000/users/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonObject),
+    })
 
-  // function LoginClick() {
-  //    history.push('/ItemPost')
-  // }
+    result
+      .then(response => {
+        if (response.status !== 200) alert(response.statusText)
+        else alert('Login Success!!')
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,7 +83,7 @@ export default function Login(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -99,6 +115,7 @@ export default function Login(props) {
             label="Remember me"
           />
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             disabled={!validateForm()}
