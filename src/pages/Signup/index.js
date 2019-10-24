@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Signup(props) {
+export function Signup(props) {
   const [email, setemail] = useState('')
   // const [account, setaccount] = useState('')
   const [fname, setfname] = useState('')
