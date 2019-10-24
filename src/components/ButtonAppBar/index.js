@@ -98,7 +98,7 @@ function AvartarButton({ signOut }) {
         {popupState => (
           <div style={divStyle}>
             <Button variant="contained" {...bindToggle(popupState)}>
-              Add you product
+              Add your product
             </Button>
             <Popper {...bindPopper(popupState)} transition>
               {({ TransitionProps }) => (
