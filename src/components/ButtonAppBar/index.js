@@ -8,6 +8,12 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { AccountCircle } from '@material-ui/icons'
+import Popper from '@material-ui/core/Popper'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
+import Fade from '@material-ui/core/Fade'
+import Paper from '@material-ui/core/Paper'
+import { ItemPost } from '../../pages/ItemPost'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +25,20 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
+  fab: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  typography: {
+    padding: theme.spacing(2),
+  },
 }))
+
+const divStyle = {
+  display: 'inline',
+}
 
 export function ButtonAppBar() {
   const [auth, setAuth] = React.useState(true)
@@ -53,6 +72,7 @@ function AuthedButtons({ signOut }) {
 }
 
 function AvartarButton({ signOut }) {
+  const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
@@ -74,10 +94,33 @@ function AvartarButton({ signOut }) {
 
   return (
     <div>
+      <PopupState variant="popper" popupId="demo-popup-popper">
+        {popupState => (
+          <div style={divStyle}>
+            <Button variant="contained" {...bindToggle(popupState)}>
+              Add you product
+            </Button>
+            <Popper {...bindPopper(popupState)} transition>
+              {({ TransitionProps }) => (
+                <ClickAwayListener onClickAway={popupState.close}>
+                  <Fade {...TransitionProps} timeout={350}>
+                    <Paper>
+                      <Typography className={classes.typography}>
+                        <ItemPost />
+                      </Typography>
+                    </Paper>
+                  </Fade>
+                </ClickAwayListener>
+              )}
+            </Popper>
+          </div>
+        )}
+      </PopupState>
       <IconButton
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
+        stule={divStyle}
         onClick={handleMenu}
         color="inherit"
       >
