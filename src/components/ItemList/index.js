@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
+import { beaver } from '../../pages/ItemListPage/BEAVER.png'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -45,15 +46,23 @@ export function ItemList({ items }) {
   const [openCard, setOpenCard] = React.useState(false)
   const [openPrice, setOpenPrice] = React.useState(false)
 
-  function handleClick(state) {
-    if (state === 'card') setOpenCard(prev => !prev)
-    if (state === 'price') setOpenPrice(prev => !prev)
+  const id = 0
+  let [itemIndex, setOpenItem] = React.useState(items[id])
+
+  function handleClick(index) {
+    itemIndex = items[index]
+    setOpenItem(items[index])
+    setOpenCard(prev => !prev)
   }
 
-  const handleClickAway = state => () => {
-    if (state === 'card') setOpenCard(false)
-    if (state === 'price') setOpenPrice(false)
+  function handleClickPrice(index) {
+    itemIndex = items[index]
+    setOpenItem(items[index])
+    setOpenPrice(prev => !prev)
   }
+
+  const handleClickAway = () => setOpenCard(false)
+  const handleClickAwayPrice = () => setOpenPrice(false)
 
   return (
     <div className="item-card-list">
@@ -61,16 +70,15 @@ export function ItemList({ items }) {
         return (
           <div className="item-card" key={index}>
             <Card className={classes.card}>
-              <CardActionArea
-                key={index}
-                onClick={handleClick.bind(this, 'card', index)}
-              >
+              <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image="/static/images/cards/contemplative-reptile.jpg"
+                  image={'/pages/ItemListPage/BEAVER.png'}
                   title="Item List"
                   key={item.name}
                   id={item.name}
+                  key={index}
+                  onClick={handleClick.bind(this, index)}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -95,20 +103,20 @@ export function ItemList({ items }) {
                   aria-labelledby="simple-modal-title"
                   aria-describedby="simple-modal-description"
                   open={openCard}
-                  onClose={handleClickAway('card')}
+                  onClose={handleClickAway}
                 >
                   <div className={classes.paper}>
                     <h1>Item Info</h1>
                     <h2>Item name</h2>
-                    <p>{item.name}</p>
+                    <p>{itemIndex.name}</p>
                     <h2>Item Price</h2>
-                    <p>{item.price}</p>
+                    <p>{itemIndex.price}</p>
                     <h2>Item Category</h2>
-                    <p>{item.category}</p>
+                    <p>{itemIndex.category}</p>
                     <h2>Item Location</h2>
-                    <p>{item.location}</p>
+                    <p>{itemIndex.location}</p>
                     <h2>Item Description</h2>
-                    <p>{item.description}</p>
+                    <p>{itemIndex.description}</p>
                   </div>
                 </Modal>
               </CardActionArea>
@@ -119,7 +127,7 @@ export function ItemList({ items }) {
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   key={index}
-                  onClick={handleClick.bind(this, 'price', index)}
+                  onClick={handleClickPrice.bind(this, index)}
                 >
                   Buy
                 </Button>
@@ -127,13 +135,13 @@ export function ItemList({ items }) {
                   aria-labelledby="simple-modal-title"
                   aria-describedby="simple-modal-description"
                   open={openPrice}
-                  onClose={handleClickAway('price')}
+                  onClose={handleClickAwayPrice}
                 >
                   <div className={classes.paper}>
                     <h1>Excelent choice!</h1>
-                    <h2>Owner Name </h2> <p>{item.ownerName}</p>
+                    <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
                     <h2>Owner Mail </h2>
-                    <p>{item.ownerMail}</p>
+                    <p>{itemIndex.ownerMail}</p>
                   </div>
                 </Modal>
               </CardActions>
