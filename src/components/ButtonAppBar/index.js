@@ -66,7 +66,6 @@ export function ButtonAppBar() {
               style={{ color: 'white', textDecoration: 'none' }}
               onClick={handleTitle}
             >
-              {' '}
               OSUsed Store
             </Link>
           </Typography>
