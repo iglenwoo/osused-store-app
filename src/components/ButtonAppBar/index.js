@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,6 +15,9 @@ import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
 import Fade from '@material-ui/core/Fade'
 import Paper from '@material-ui/core/Paper'
 import { ItemPost } from '../../pages/ItemPost'
+
+import { PrivateRoute } from '../App/index'
+import { Redirect } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,7 +57,13 @@ export function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            component={Link}
+            to="/ItemList"
+            style={{ textDecoration: 'none', color: 'white' }}
+          >
             OSUsed Store
           </Typography>
           {auth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
@@ -90,6 +100,20 @@ function AvartarButton({ signOut }) {
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
+  }
+
+  const state = {
+    redirect: false,
+  }
+  const setRedirect = () => {
+    this.setState({
+      redirect: true,
+    })
+  }
+  const renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />
+    }
   }
 
   return (
@@ -151,8 +175,12 @@ function AvartarButton({ signOut }) {
 function UnAuthedButtons() {
   return (
     <>
-      <Button color="inherit">SignUp</Button>
-      <Button color="inherit">Login</Button>
+      <Button color="inherit" component={Link} to="/Signup">
+        SignUp
+      </Button>
+      <Button color="inherit" component={Link} to="/login">
+        Login
+      </Button>
     </>
   )
 }
