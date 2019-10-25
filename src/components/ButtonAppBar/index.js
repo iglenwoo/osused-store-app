@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import * as routes from '../../constants/routes'
@@ -45,9 +47,14 @@ const divStyle = {
 
 export function ButtonAppBar() {
   const { userInfo, logout } = useUserContext()
+  const history = useHistory()
 
   const signOut = () => {
     logout()
+  }
+
+  const handleTitle = event => {
+    history.push('/ItemList')
   }
 
   const classes = useStyles()
@@ -57,7 +64,13 @@ export function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            OSUsed Store
+            <Link
+              to="/ItemList"
+              style={{ color: 'white', textDecoration: 'none' }}
+              onClick={handleTitle}
+            >
+              OSUsed Store
+            </Link>
           </Typography>
           {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
@@ -110,7 +123,10 @@ function AvartarButton({ signOut }) {
                 <ClickAwayListener onClickAway={popupState.close}>
                   <Fade {...TransitionProps} timeout={350}>
                     <Paper>
-                      <Typography className={classes.typography}>
+                      <Typography
+                        className={classes.typography}
+                        component={'span'}
+                      >
                         <ItemPost />
                       </Typography>
                     </Paper>
