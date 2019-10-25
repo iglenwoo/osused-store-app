@@ -63,8 +63,15 @@ export function ButtonAppBar() {
             component={Link}
             to="/ItemList"
             style={{ textDecoration: 'none', color: 'white' }}
+            component="span"
           >
-            OSUsed Store
+            <Link
+              tag="a"
+              to="/ItemList"
+              style={{ color: 'white', textDecoration: 'none' }}
+            >
+              OSUsed Store
+            </Link>
           </Typography>
           {auth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
@@ -129,7 +136,10 @@ function AvartarButton({ signOut }) {
                 <ClickAwayListener onClickAway={popupState.close}>
                   <Fade {...TransitionProps} timeout={350}>
                     <Paper>
-                      <Typography className={classes.typography}>
+                      <Typography
+                        className={classes.typography}
+                        component={'span'}
+                      >
                         <ItemPost />
                       </Typography>
                     </Paper>
