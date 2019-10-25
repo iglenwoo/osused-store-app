@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -149,10 +150,23 @@ function AvartarButton({ signOut }) {
 }
 
 function UnAuthedButtons() {
+  const history = useHistory()
+
+  const handleSignUp = event => {
+    history.push('/signup')
+  }
+  const handleLogin = event => {
+    history.push('/login')
+  }
+
   return (
     <>
-      <Button color="inherit">SignUp</Button>
-      <Button color="inherit">Login</Button>
+      <Button color="inherit" onClick={handleSignUp}>
+        SignUp
+      </Button>
+      <Button color="inherit" onClick={handleLogin}>
+        Login
+      </Button>
     </>
   )
 }
