@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
+import { Link as LinkReactRouter } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -48,6 +48,25 @@ export function Login(props) {
     return email.length > 0 && password.length > 0
   }
 
+  function handleResultData(result) {
+    if (result === null) return
+
+    result
+      .then(responseData => {
+        let key = 'osused' + responseData.user.email
+        if (window.sessionStorage.getItem(key) !== null)
+          window.sessionStorage.removeItem(key)
+        window.sessionStorage.setItem(key, responseData.token)
+        // document.getElementById('user').value = responseData.user
+        console.log(responseData.user)
+        document.getElementById('home').click()
+      })
+      .catch(function(err) {
+        console.log(err)
+        alert('err!!')
+      })
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.target)
@@ -64,19 +83,27 @@ export function Login(props) {
       },
       body: JSON.stringify(jsonObject),
     })
-
-    result
       .then(response => {
-        if (response.status !== 200) alert(response.statusText)
-        else alert('Login Success!!')
+        if (response.status !== 200) {
+          alert(response.statusText)
+          return null
+        } else {
+          alert('Login Success!!')
+          return response.json()
+        }
       })
       .catch(function(err) {
         console.log(err)
+        alert('err!!')
       })
+    handleResultData(result)
   }
 
   return (
     <Container component="main" maxWidth="xs">
+      <LinkReactRouter id="home" to="/SignUp" hidden>
+        Hidden
+      </LinkReactRouter>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
@@ -126,9 +153,9 @@ export function Login(props) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/Signup" variant="body2">
+              <LinkReactRouter to="/Signup">
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </LinkReactRouter>
             </Grid>
           </Grid>
         </form>
