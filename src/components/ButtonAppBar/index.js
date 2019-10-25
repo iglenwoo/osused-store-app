@@ -73,7 +73,7 @@ function AuthedButtons({ signOut }) {
 }
 
 function AvartarButton({ signOut }) {
-  const classes = useStyles()
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
@@ -87,11 +87,13 @@ function AvartarButton({ signOut }) {
   const handleProfile = () => {
     setAnchorEl(null)
   }
-
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
+    history.push('/login')
   }
+
+  const classes = useStyles()
 
   return (
     <div>
