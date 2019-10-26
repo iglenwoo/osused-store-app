@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -44,6 +42,14 @@ export default function Signup(props) {
   const [Lname, setLname] = useState('')
   const [password, setpassword] = useState('')
   const [checkv, setcheckv] = useState('')
+  const [checkpassword, setcheckpassword] = useState('')
+
+  function valipassword() {
+    if (checkpassword !== password) {
+      alert('Two passwords are not the same')
+      return false
+    }
+  }
 
   function validateForm() {
     return (
@@ -51,7 +57,7 @@ export default function Signup(props) {
       password.length > 0 &&
       fname.length > 0 &&
       Lname.length > 0 &&
-      checkv
+      valipassword()
     )
   }
 
@@ -140,16 +146,17 @@ export default function Signup(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checkv}
-                    onChange={e => setcheckv(e.target.value)}
-                    value="allowExtraEmails"
-                    color="primary"
-                  />
-                }
-                label="I want to receive inspiration, marketing promotions and updates via email."
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="checkpassword"
+                label="Checkpassword"
+                type="password"
+                id="Checkpassword"
+                autoComplete="renter-password"
+                value={checkpassword}
+                onChange={e => setcheckpassword(e.target.value)}
               />
             </Grid>
           </Grid>
