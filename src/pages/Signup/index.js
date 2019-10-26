@@ -41,7 +41,6 @@ export default function Signup(props) {
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
   const [password, setpassword] = useState('')
-  const [checkv, setcheckv] = useState('')
   const [checkpassword, setcheckpassword] = useState('')
 
   function valipassword() {
