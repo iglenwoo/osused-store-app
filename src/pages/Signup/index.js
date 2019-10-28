@@ -75,7 +75,7 @@ export function Signup(props) {
     result
       .then(response => {
         if (response.status !== 200) alert(response.statusText)
-        else alert('Login Success!!')
+        else alert('Sign up Success!!')
       })
       .catch(function(err) {
         console.log(err)
