@@ -73,11 +73,10 @@ export function ItemList({ items }) {
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image={'/pages/ItemListPage/BEAVER.png'}
+                  image={beaver}
                   title="Item List"
-                  key={item.name}
+                  key={`${item.name}-${index}`}
                   id={item.name}
-                  key={index}
                   onClick={handleClick.bind(this, index)}
                 />
                 <CardContent>

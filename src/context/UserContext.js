@@ -4,6 +4,7 @@ const localhost = 'http://localhost:4000'
 const UserContext = React.createContext({})
 
 function logoutProcess(email, password) {
+  //TODO: logout
   return false
 }
 
@@ -41,6 +42,8 @@ function useProvideAuth() {
   }
 
   const logout = (email, password) => {
+    setUserInfo(null)
+    setToken('')
     return logoutProcess(email, password)
   }
 

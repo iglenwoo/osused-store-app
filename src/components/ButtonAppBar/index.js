@@ -15,6 +15,7 @@ import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
 import Fade from '@material-ui/core/Fade'
 import Paper from '@material-ui/core/Paper'
 import { ItemPost } from '../../pages/ItemPost'
+import { useUserContext } from '../../context/UserContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,10 +43,10 @@ const divStyle = {
 }
 
 export function ButtonAppBar() {
-  const [auth, setAuth] = React.useState(true)
+  const { userInfo, logout } = useUserContext()
 
   const signOut = () => {
-    setAuth(false)
+    logout()
   }
 
   const classes = useStyles()
@@ -57,7 +58,7 @@ export function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             OSUsed Store
           </Typography>
-          {auth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
+          {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
       </AppBar>
     </div>
