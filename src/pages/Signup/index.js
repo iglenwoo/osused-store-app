@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -37,15 +36,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function Signup(props) {
   const [email, setemail] = useState('')
-  // const [account, setaccount] = useState('')
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
   const [password, setpassword] = useState('')
   const [checkpassword, setcheckpassword] = useState('')
 
   function valipassword() {
-    if (checkpassword !== password) {
-      alert('Two passwords are not the same')
+    if (checkpassword == password && checkpassword.length > 0) {
+      return true
+    } else {
       return false
     }
   }
@@ -58,6 +57,22 @@ export default function Signup(props) {
       Lname.length > 0 &&
       valipassword()
     )
+  }
+
+  function displaychange() {
+    if (!valipassword()) {
+      return (
+        <Typography component="h1" variant="caption" color="error">
+          The passwords do not match or one of the form is empty!
+        </Typography>
+      )
+    } else {
+      return (
+        <Typography component="h1" variant="caption" color="primary">
+          All done!
+        </Typography>
+      )
+    }
   }
 
   function handleSubmit(event) {
@@ -84,7 +99,6 @@ export default function Signup(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -158,6 +172,7 @@ export default function Signup(props) {
                 onChange={e => setcheckpassword(e.target.value)}
               />
             </Grid>
+            <Grid>{displaychange()}</Grid>
           </Grid>
           <Button
             //type="submit"
