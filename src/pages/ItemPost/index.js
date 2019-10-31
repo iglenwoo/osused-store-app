@@ -1,6 +1,7 @@
 import React from 'react'
 import './ItemPost.css'
 import { InputLabel, SelectionLabel } from '../../components/Label/index'
+import { Button } from '@material-ui/core'
 
 export class ItemPost extends React.Component {
   constructor(props) {
@@ -66,7 +67,9 @@ export class ItemPost extends React.Component {
           text="Description"
           placeholder="Enter Description"
         />
-        <button>Register</button>
+        <Button variant="contained" color="secondary">
+          Register
+        </Button>
       </form>
     )
   }
