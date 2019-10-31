@@ -1,18 +1,22 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import './App.css'
 import { ItemPost } from '../../pages/ItemPost'
-import { ItemList } from '../../pages/ItemList'
-import Login from '../../pages/Login'
-import Signup from '../../pages/Signup'
+import { ItemListPage } from '../../pages/ItemListPage'
+import { Login } from '../../pages/Login'
+import { Signup } from '../../pages/Signup'
+import { ButtonAppBar } from '../ButtonAppBar'
+import { useUserContext } from '../../context/UserContext'
 
-const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { userInfo } = useUserContext()
+
   return (
     <Route
       {...rest}
       render={props =>
-        authed === true ? (
+        userInfo !== null ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -25,20 +29,20 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
 }
 
 export const App = () => {
-  // TODO: authed needs to change
-  const authed = true
-
   return (
     <Router>
+      <ButtonAppBar />
       <Switch>
-        <Route path="/ItemList" component={ItemList} />
-        <PrivateRoute path="/ItemPost" authed={authed} component={ItemPost} />
-        <PrivateRoute path="/Login" authed={authed}>
+        <Route path="/ItemList">
+          <ItemListPage />
+        </Route>
+        <PrivateRoute path="/ItemPost" component={ItemPost} />
+        <Route path="/Login">
           <Login />
-        </PrivateRoute>
-        <PrivateRoute path="/Signup" authed={authed}>
+        </Route>
+        <Route path="/Signup">
           <Signup />
-        </PrivateRoute>
+        </Route>
         <Route path="/">
           <Redirect to="/ItemList" />
         </Route>
