@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { useUserContext } from '../../context/UserContext'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -34,11 +36,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Login(props) {
+export function Login() {
+  const userContext = useUserContext()
   const classes = useStyles()
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
-  // let history = useHistory()
+  const history = useHistory()
 
   function validateForm() {
     return email.length > 0 && password.length > 0
@@ -46,30 +49,10 @@ export default function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const data = new FormData(event.target)
-    var result = fetch('http://localhost:4000/user/login', {
-      method: 'POST',
-      body: data,
+    userContext.login(email, password).then(loginSuc => {
+      if (loginSuc === true) history.push('/')
     })
-
-    result
-      .then(response => response.json())
-      .then(responseData => {
-        if (responseData.status === 0) alert('Update Success!!')
-        else alert('Update fault!!')
-      })
-      .catch(function(err) {
-        console.log(err)
-      })
   }
-
-  // function signupClick() {
-  //   history.push('/Signup')
-  // }
-
-  // function LoginClick() {
-  //    history.push('/ItemPost')
-  // }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -79,6 +62,7 @@ export default function Login(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -118,7 +102,7 @@ export default function Login(props) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/Signup" variant="body2">
+              <Link to="/Signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

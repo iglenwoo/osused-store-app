@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Signup(props) {
+export function Signup(props) {
   const [email, setemail] = useState('')
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
@@ -47,6 +47,7 @@ export default function Signup(props) {
       return false
     }
   }
+
 
   function validateForm() {
     return (
@@ -77,16 +78,24 @@ export default function Signup(props) {
   function handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.target)
-    var result = fetch('http://localhost:4000/user/signup', {
+    let jsonObject = {}
+    for (const [key, value] of data.entries()) {
+      jsonObject[key] = value
+    }
+    console.log(jsonObject)
+    let result = fetch('http://localhost:4000/users/signup', {
       method: 'POST',
-      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonObject),
     })
 
     result
-      .then(response => response.json())
-      .then(responseData => {
-        if (responseData.status === 0) alert('Update Success!!')
-        else alert('Update fault!!')
+      .then(response => {
+        if (response.status !== 200) alert(response.statusText)
+        else alert('Sign up Success!!')
       })
       .catch(function(err) {
         console.log(err)
@@ -174,7 +183,7 @@ export default function Signup(props) {
             <Grid>{displaychange()}</Grid>
           </Grid>
           <Button
-            //type="submit"
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"
