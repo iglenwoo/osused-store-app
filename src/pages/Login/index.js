@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useUserContext } from '../../context/UserContext'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -102,8 +102,8 @@ export function Login() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link to="/Signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link variant="body2" component={LinkSignUp}>
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
@@ -112,3 +112,6 @@ export function Login() {
     </Container>
   )
 }
+const LinkSignUp = React.forwardRef((props, ref) => (
+  <RouterLink innerRef={ref} to="/signup" {...props} />
+))
