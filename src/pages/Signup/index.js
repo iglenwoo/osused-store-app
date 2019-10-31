@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export function Signup(props) {
+  const history = useHistory()
   const [email, setemail] = useState('')
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
@@ -42,11 +43,7 @@ export function Signup(props) {
   const [checkpassword, setcheckpassword] = useState('')
 
   function valipassword() {
-    if (checkpassword == password && checkpassword.length > 0) {
-      return true
-    } else {
-      return false
-    }
+    return checkpassword === password && checkpassword.length > 0
   }
 
   function validateForm() {
@@ -94,8 +91,12 @@ export function Signup(props) {
 
     result
       .then(response => {
-        if (response.status !== 200) alert(response.statusText)
-        else alert('Sign up Success!!')
+        if (response.status === 200) {
+          alert('Sign up Success!!')
+          history.push('/login')
+        } else {
+          alert(response.statusText)
+        }
       })
       .catch(function(err) {
         console.log(err)
