@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
@@ -39,11 +35,19 @@ const useStyles = makeStyles(theme => ({
 
 export function Signup(props) {
   const [email, setemail] = useState('')
-  // const [account, setaccount] = useState('')
   const [fname, setfname] = useState('')
   const [Lname, setLname] = useState('')
   const [password, setpassword] = useState('')
-  const [checkv, setcheckv] = useState(false)
+  const [checkpassword, setcheckpassword] = useState('')
+
+  function valipassword() {
+    if (checkpassword == password && checkpassword.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 
   function validateForm() {
     return (
@@ -51,8 +55,24 @@ export function Signup(props) {
       password.length > 0 &&
       fname.length > 0 &&
       Lname.length > 0 &&
-      checkv
+      valipassword()
     )
+  }
+
+  function displaychange() {
+    if (!valipassword()) {
+      return (
+        <Typography component="h1" variant="caption" color="error">
+          The passwords do not match or one of the form is empty!
+        </Typography>
+      )
+    } else {
+      return (
+        <Typography component="h1" variant="caption" color="primary">
+          All done!
+        </Typography>
+      )
+    }
   }
 
   function handleSubmit(event) {
@@ -87,7 +107,6 @@ export function Signup(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
@@ -148,20 +167,20 @@ export function Signup(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checkv}
-                    onChange={e => {
-                      setcheckv(e.target.checked)
-                    }}
-                    value="allowExtraEmails"
-                    color="primary"
-                  />
-                }
-                label="I want to receive inspiration, marketing promotions and updates via email."
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="checkpassword"
+                label="Checkpassword"
+                type="password"
+                id="Checkpassword"
+                autoComplete="renter-password"
+                value={checkpassword}
+                onChange={e => setcheckpassword(e.target.value)}
               />
             </Grid>
+            <Grid>{displaychange()}</Grid>
           </Grid>
           <Button
             type="submit"
@@ -182,7 +201,6 @@ export function Signup(props) {
           </Grid>
         </form>
       </div>
-      <Box mt={5}></Box>
     </Container>
   )
 }
