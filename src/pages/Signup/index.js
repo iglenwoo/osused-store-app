@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -47,7 +48,6 @@ export function Signup(props) {
       return false
     }
   }
-
 
   function validateForm() {
     return (
@@ -194,7 +194,7 @@ export function Signup(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/Login" variant="body2">
+              <Link variant="body2" component={LinkLogin}>
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -204,3 +204,6 @@ export function Signup(props) {
     </Container>
   )
 }
+const LinkLogin = React.forwardRef((props, ref) => (
+  <RouterLink innerRef={ref} to="/login" {...props} />
+))
