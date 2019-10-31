@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ItemList } from '../../components/ItemList'
 import './ItemListPage.css'
+import { SearchField } from '../../components/SearchField'
+import { CategorySelects } from '../../components/CategorySelect'
 
 export const ItemListPage = () => {
   const [items, setItems] = useState([])
@@ -13,11 +15,15 @@ export const ItemListPage = () => {
       const items = await response.json()
       setItems(items)
     }
+
     fetchItems().catch(e => console.error(e))
   }, [])
 
   return (
     <>
+      <div>
+        <SearchField />
+      </div>
       <div className="items-labels">
         <h1>Products for you</h1>
         <h2>Recently Posted</h2>
