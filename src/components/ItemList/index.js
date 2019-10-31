@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
-import { beaver } from '../../pages/ItemListPage/BEAVER.png'
+import CloseIcon from '@material-ui/icons/Close'
+import { beaver } from './BEAVER.png'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -71,34 +72,40 @@ export function ItemList({ items }) {
           <div className="item-card" key={index}>
             <Card className={classes.card}>
               <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={'/pages/ItemListPage/BEAVER.png'}
-                  title="Item List"
-                  key={item.name}
-                  id={item.name}
-                  key={index}
+                <div
+                  className="cardContent"
                   onClick={handleClick.bind(this, index)}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {item.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="h3"
-                  >
-                    {item.price}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {item.description}
-                  </Typography>
-                </CardContent>
+                >
+                  <CardMedia
+                    className={classes.media}
+                    component="img"
+                    image={require('./BEAVER.png')}
+                    alt="OSUsed Store Beaver"
+                    height="140"
+                    title="Item List"
+                    key={`${item.name}-${index}`}
+                    id={item.name}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="h3"
+                    >
+                      {item.price}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {item.description}
+                    </Typography>
+                  </CardContent>
+                </div>
                 <Modal
                   aria-labelledby="simple-modal-title"
                   aria-describedby="simple-modal-description"
@@ -106,6 +113,12 @@ export function ItemList({ items }) {
                   onClose={handleClickAway}
                 >
                   <div className={classes.paper}>
+                    <Button
+                      onClick={handleClickAway}
+                      style={{ left: 425, padding: 0 }}
+                    >
+                      <CloseIcon />
+                    </Button>
                     <h1>Item Info</h1>
                     <h2>Item name</h2>
                     <p>{itemIndex.name}</p>
@@ -138,7 +151,13 @@ export function ItemList({ items }) {
                   onClose={handleClickAwayPrice}
                 >
                   <div className={classes.paper}>
-                    <h1>Excelent choice!</h1>
+                    <Button
+                      onClick={handleClickAwayPrice.bind(this, index)}
+                      style={{ left: 425, padding: 0 }}
+                    >
+                      <CloseIcon />
+                    </Button>
+                    <h1>Excellent choice!</h1>
                     <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
                     <h2>Owner Mail </h2>
                     <p>{itemIndex.ownerMail}</p>

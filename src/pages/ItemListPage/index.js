@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { ItemList } from '../../components/ItemList'
 import './ItemListPage.css'
 
-import mockItems from './ItemList.mock'
-
 export const ItemListPage = () => {
-  const [items, setItems] = useState(mockItems)
+  const [items, setItems] = useState([])
 
   useEffect(() => {
     async function fetchItems() {

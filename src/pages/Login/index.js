@@ -3,14 +3,13 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { useUserContext } from '../../context/UserContext'
+import { Link, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -37,12 +36,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export function Login(props) {
+export function Login() {
+  const userContext = useUserContext()
   const classes = useStyles()
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
-
-  // let history = useHistory()
+  const history = useHistory()
 
   function validateForm() {
     return email.length > 0 && password.length > 0
@@ -50,29 +49,9 @@ export function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const data = new FormData(event.target)
-
-    let jsonObject = {}
-    for (const [key, value] of data.entries()) {
-      jsonObject[key] = value
-    }
-    let result = fetch('http://localhost:4000/users/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(jsonObject),
+    userContext.login(email, password).then(loginSuc => {
+      if (loginSuc === true) history.push('/')
     })
-
-    result
-      .then(response => {
-        if (response.status !== 200) alert(response.statusText)
-        else alert('Login Success!!')
-      })
-      .catch(function(err) {
-        console.log(err)
-      })
   }
 
   return (
@@ -83,6 +62,7 @@ export function Login(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -110,10 +90,6 @@ export function Login(props) {
             value={password}
             onChange={e => setpassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -126,7 +102,7 @@ export function Login(props) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/Signup" variant="body2">
+              <Link to="/Signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

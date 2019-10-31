@@ -1,6 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -15,9 +17,7 @@ import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
 import Fade from '@material-ui/core/Fade'
 import Paper from '@material-ui/core/Paper'
 import { ItemPost } from '../../pages/ItemPost'
-
-import { PrivateRoute } from '../App/index'
-import { Redirect } from 'react-router'
+import { useUserContext } from '../../context/UserContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,10 +45,15 @@ const divStyle = {
 }
 
 export function ButtonAppBar() {
-  const [auth, setAuth] = React.useState(true)
+  const history = useHistory()
+  const { userInfo, logout } = useUserContext()
 
   const signOut = () => {
-    setAuth(false)
+    logout()
+  }
+
+  const handleTitle = event => {
+    history.push('/ItemList')
   }
 
   const classes = useStyles()
@@ -57,23 +62,16 @@ export function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            className={classes.title}
-            component={Link}
-            to="/ItemList"
-            style={{ textDecoration: 'none', color: 'white' }}
-            component="span"
-          >
+          <Typography variant="h6" className={classes.title}>
             <Link
-              tag="a"
               to="/ItemList"
               style={{ color: 'white', textDecoration: 'none' }}
+              onClick={handleTitle}
             >
               OSUsed Store
             </Link>
           </Typography>
-          {auth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
+          {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
       </AppBar>
     </div>
@@ -89,7 +87,7 @@ function AuthedButtons({ signOut }) {
 }
 
 function AvartarButton({ signOut }) {
-  const classes = useStyles()
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
@@ -103,25 +101,13 @@ function AvartarButton({ signOut }) {
   const handleProfile = () => {
     setAnchorEl(null)
   }
-
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
+    history.push('/login')
   }
 
-  const state = {
-    redirect: false,
-  }
-  const setRedirect = () => {
-    this.setState({
-      redirect: true,
-    })
-  }
-  const renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/login" />
-    }
-  }
+  const classes = useStyles()
 
   return (
     <div>
@@ -183,12 +169,21 @@ function AvartarButton({ signOut }) {
 }
 
 function UnAuthedButtons() {
+  const history = useHistory()
+
+  const handleSignUp = event => {
+    history.push('/signup')
+  }
+  const handleLogin = event => {
+    history.push('/login')
+  }
+
   return (
     <>
-      <Button color="inherit" component={Link} to="/Signup">
+      <Button color="inherit" onClick={handleSignUp}>
         SignUp
       </Button>
-      <Button color="inherit" component={Link} to="/login">
+      <Button color="inherit" onClick={handleLogin}>
         Login
       </Button>
     </>
