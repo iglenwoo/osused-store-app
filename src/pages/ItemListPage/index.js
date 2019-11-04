@@ -7,18 +7,22 @@ import { useLocation } from 'react-router-dom'
 export const ItemListPage = props => {
   const [items, setItems] = useState([])
   const query = new URLSearchParams(useLocation().search)
+  const itemName = query.get('name')
+  const category = query.get('category')
+
   useEffect(() => {
     async function fetchItems() {
-      let targetUrl = `http://localhost:4000/items?name=${query.get('name') ||
-        ''}&category=${query.get('category') || ''}`
+      let targetUrl = `http://localhost:4000/items?name=${itemName ||
+        ''}&category=${category || ''}`
       const response = await fetch(targetUrl, {
         method: 'GET',
       })
       const items = await response.json()
       setItems(items)
     }
+
     fetchItems().catch(e => console.error(e))
-  })
+  }, [itemName, category])
 
   return (
     <>
