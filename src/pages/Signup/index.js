@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export function Signup(props) {
+export function SignUp(props) {
   const history = useHistory()
   const [email, setemail] = useState('')
   const [fname, setfname] = useState('')

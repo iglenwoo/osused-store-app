@@ -4,7 +4,7 @@ import { SearchField } from '../../components/SearchField'
 import { useLocation } from 'react-router-dom'
 import { API_BASE_URL } from '../../constants/routes'
 
-export const ItemsPage = () => {
+export const Items = () => {
   const [items, setItems] = useState([])
   const query = new URLSearchParams(useLocation().search)
   const itemName = query.get('name')
