@@ -114,5 +114,5 @@ export function Login() {
   )
 }
 const LinkSignUp = React.forwardRef((props, ref) => (
-  <RouterLink innerRef={ref} to="/signup" {...props} />
+  <RouterLink innerRef={ref} to={routes.SIGN_UP} {...props} />
 ))
