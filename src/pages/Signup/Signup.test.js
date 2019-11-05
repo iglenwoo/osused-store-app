@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Signup } from './index'
+import { SignUp } from './index'
 
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({
@@ -9,5 +9,5 @@ jest.mock('react-router-dom', () => ({
 }))
 
 it('renders without crashing', () => {
-  shallow(<Signup />)
+  shallow(<SignUp />)
 })
