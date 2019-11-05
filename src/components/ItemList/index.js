@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
-import { beaver } from '../../pages/ItemListPage/BEAVER.png'
+import { beaver } from '../../pages/ItemsPage/BEAVER.png'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {

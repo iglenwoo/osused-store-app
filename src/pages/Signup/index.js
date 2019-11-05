@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
+import * as routes from '../../constants/routes'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -93,7 +94,7 @@ export function Signup(props) {
       .then(response => {
         if (response.status === 200) {
           alert('Sign up Success!!')
-          history.push('/login')
+          history.push(routes.Login)
         } else {
           alert(response.statusText)
         }

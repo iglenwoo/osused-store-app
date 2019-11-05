@@ -2,8 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import './App.css'
+import * as routes from '../../constants/routes'
 import { ItemPost } from '../../pages/ItemPost'
-import { ItemListPage } from '../../pages/ItemListPage'
+import { ItemsPage } from '../../pages/ItemsPage'
 import { Login } from '../../pages/Login'
 import { Signup } from '../../pages/Signup'
 import { ButtonAppBar } from '../ButtonAppBar'
@@ -33,19 +34,13 @@ export const App = () => {
     <Router>
       <ButtonAppBar />
       <Switch>
-        <Route path="/ItemList">
-          <ItemListPage />
-        </Route>
-        <PrivateRoute path="/ItemPost" component={ItemPost} />
-        <Route path="/Login">
-          <Login />
-        </Route>
-        <Route path="/Signup">
-          <Signup />
-        </Route>
         <Route path="/">
-          <Redirect to="/ItemList" />
+          <Redirect to="/items" />
         </Route>
+        <Route path={routes.Items} component={ItemsPage} />
+        <Route path={routes.Login} component={Login} />
+        <Route path={routes.SignUp} component={Signup} />
+        <PrivateRoute path={routes.ItemPost} component={ItemPost} />
       </Switch>
     </Router>
   )

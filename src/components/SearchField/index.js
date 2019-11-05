@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import * as routes from '../../constants/routes'
 import InputBase from '@material-ui/core/InputBase'
 import { makeStyles } from '@material-ui/core/styles'
 import { CategorySelects } from '../CategorySelect'
@@ -27,7 +28,7 @@ export function SearchField() {
 
   function handleSearchSubmit(event) {
     event.preventDefault()
-    history.push(`/ItemList?name=${itemName}&category=${category}`)
+    history.push(`${routes.Items}?name=${itemName}&category=${category}`)
   }
 
   return (

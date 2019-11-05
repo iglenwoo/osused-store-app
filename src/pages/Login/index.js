@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import * as routes from '../../constants/routes'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -50,7 +51,7 @@ export function Login() {
   function handleSubmit(event) {
     event.preventDefault()
     userContext.login(email, password).then(loginSuc => {
-      if (loginSuc === true) history.push('/')
+      if (loginSuc === true) history.push(routes.Items)
     })
   }
 

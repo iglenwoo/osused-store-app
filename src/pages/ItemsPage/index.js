@@ -3,7 +3,7 @@ import { ItemList } from '../../components/ItemList'
 import { SearchField } from '../../components/SearchField'
 import { useLocation } from 'react-router-dom'
 
-export const ItemListPage = props => {
+export const ItemsPage = () => {
   const [items, setItems] = useState([])
   const query = new URLSearchParams(useLocation().search)
   const itemName = query.get('name')

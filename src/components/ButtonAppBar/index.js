@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
+import * as routes from '../../constants/routes'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -91,7 +92,7 @@ function AvartarButton({ signOut }) {
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
-    history.push('/login')
+    history.push(routes.Login)
   }
 
   const classes = useStyles()
@@ -156,10 +157,10 @@ function UnAuthedButtons() {
   const history = useHistory()
 
   const handleSignUp = event => {
-    history.push('/signup')
+    history.push(routes.SignUp)
   }
   const handleLogin = event => {
-    history.push('/login')
+    history.push(routes.Login)
   }
 
   return (
