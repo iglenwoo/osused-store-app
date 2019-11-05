@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ItemList } from '../../components/ItemList'
-import './ItemListPage.css'
 import { SearchField } from '../../components/SearchField'
 import { useLocation } from 'react-router-dom'
 
@@ -26,7 +25,7 @@ export const ItemListPage = props => {
 
   return (
     <>
-      <SearchField id="SearchField" name="SearchField" />
+      <SearchField />
       <div className="items-labels">
         <h1>Products for you</h1>
         <h2>Recently Posted</h2>
