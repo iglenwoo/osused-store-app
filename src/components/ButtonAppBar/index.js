@@ -1,8 +1,8 @@
 import React from 'react'
+
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
-
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -47,12 +47,14 @@ const divStyle = {
 export function ButtonAppBar() {
   const history = useHistory()
   const { userInfo, logout } = useUserContext()
+  const pageHistory = useHistory()
 
   const signOut = () => {
     logout()
   }
 
   const handleTitle = event => {
+    pageHistory.push('/ItemList')
     history.push('/ItemList')
   }
 
@@ -140,7 +142,7 @@ function AvartarButton({ signOut }) {
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
-        stule={divStyle}
+        style={divStyle}
         onClick={handleMenu}
         color="inherit"
       >
