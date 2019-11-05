@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { API_BASE_URL } from '../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -81,7 +82,7 @@ export function Signup(props) {
       jsonObject[key] = value
     }
     console.log(jsonObject)
-    let result = fetch('http://localhost:4000/users/signup', {
+    let result = fetch(`${API_BASE_URL}/users/signup`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ItemList } from '../../components/ItemList'
 import { SearchField } from '../../components/SearchField'
 import { useLocation } from 'react-router-dom'
+import { API_BASE_URL } from '../../constants/routes'
 
 export const ItemsPage = () => {
   const [items, setItems] = useState([])
@@ -11,7 +12,7 @@ export const ItemsPage = () => {
 
   useEffect(() => {
     async function fetchItems() {
-      let targetUrl = `http://localhost:4000/items?name=${itemName ||
+      let targetUrl = `${API_BASE_URL}/items?name=${itemName ||
         ''}&category=${category || ''}`
       const response = await fetch(targetUrl, {
         method: 'GET',

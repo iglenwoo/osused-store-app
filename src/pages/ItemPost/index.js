@@ -2,6 +2,7 @@ import React from 'react'
 import './ItemPost.css'
 import { InputLabel, SelectionLabel } from '../../components/Label/index'
 import { Button } from '@material-ui/core'
+import { API_BASE_URL } from '../../constants/routes'
 
 export class ItemPost extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export class ItemPost extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.target)
-    var result = fetch('http://localhost:4000/post-sell-item', {
+    var result = fetch(`${API_BASE_URL}/post-sell-item`, {
       method: 'POST',
       body: data,
     })
