@@ -6,7 +6,7 @@ import * as routes from '../../constants/routes'
 import { ItemPost } from '../../pages/ItemPost'
 import { Items } from '../../pages/Items'
 import { Login } from '../../pages/Login'
-import { SignUp } from '../../pages/SignUp_'
+import { SignUp } from '../../pages/SignUp'
 import { ButtonAppBar } from '../ButtonAppBar'
 import { useUserContext } from '../../context/UserContext'
 
