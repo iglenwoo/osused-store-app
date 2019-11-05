@@ -95,7 +95,7 @@ export function Signup(props) {
       .then(response => {
         if (response.status === 200) {
           alert('Sign up Success!!')
-          history.push(routes.Login)
+          history.push(routes.LOGIN)
         } else {
           alert(response.statusText)
         }

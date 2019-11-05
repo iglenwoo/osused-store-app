@@ -51,7 +51,7 @@ export function Login() {
   function handleSubmit(event) {
     event.preventDefault()
     userContext.login(email, password).then(loginSuc => {
-      if (loginSuc === true) history.push(routes.Items)
+      if (loginSuc === true) history.push(routes.ITEMS)
     })
   }
 

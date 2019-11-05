@@ -28,7 +28,7 @@ export function SearchField() {
 
   function handleSearchSubmit(event) {
     event.preventDefault()
-    history.push(`${routes.Items}?name=${itemName}&category=${category}`)
+    history.push(`${routes.ITEMS}?name=${itemName}&category=${category}`)
   }
 
   return (

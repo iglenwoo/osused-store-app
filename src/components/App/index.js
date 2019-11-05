@@ -37,10 +37,10 @@ export const App = () => {
         <Route path="/">
           <Redirect to="/items" />
         </Route>
-        <Route path={routes.Items} component={ItemsPage} />
-        <Route path={routes.Login} component={Login} />
-        <Route path={routes.SignUp} component={Signup} />
-        <PrivateRoute path={routes.ItemPost} component={ItemPost} />
+        <Route path={routes.ITEMS} component={ItemsPage} />
+        <Route path={routes.LOGIN} component={Login} />
+        <Route path={routes.SIGN_UP} component={Signup} />
+        <PrivateRoute path={routes.ITEM_POST} component={ItemPost} />
       </Switch>
     </Router>
   )

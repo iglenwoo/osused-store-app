@@ -92,7 +92,7 @@ function AvartarButton({ signOut }) {
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
-    history.push(routes.Login)
+    history.push(routes.LOGIN)
   }
 
   const classes = useStyles()
@@ -157,10 +157,10 @@ function UnAuthedButtons() {
   const history = useHistory()
 
   const handleSignUp = event => {
-    history.push(routes.SignUp)
+    history.push(routes.SIGN_UP)
   }
   const handleLogin = event => {
-    history.push(routes.Login)
+    history.push(routes.LOGIN)
   }
 
   return (
