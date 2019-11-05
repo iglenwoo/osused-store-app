@@ -38,8 +38,8 @@ export const App = () => {
         <Route path={routes.LOGIN} component={Login} />
         <Route path={routes.SIGN_UP} component={SignUp} />
         <PrivateRoute path={routes.ITEM_POST} component={ItemPost} />
-        <Route path="/">
-          <Redirect to="/items" />
+        <Route path={routes.HOME}>
+          <Redirect to={routes.ITEMS} />
         </Route>
       </Switch>
     </Router>
