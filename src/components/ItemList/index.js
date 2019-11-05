@@ -1,6 +1,4 @@
 import React from 'react'
-import './ItemList.css'
-
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
@@ -12,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import CloseIcon from '@material-ui/icons/Close'
 import { beaver } from './BEAVER.png'
+
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -66,10 +65,10 @@ export function ItemList({ items }) {
   const handleClickAwayPrice = () => setOpenPrice(false)
 
   return (
-    <div className="item-card-list">
+    <>
       {items.map((item, index) => {
         return (
-          <div className="item-card" key={index}>
+          <div key={index}>
             <Card className={classes.card}>
               <CardActionArea>
                 <div
@@ -133,7 +132,7 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActionArea>
-              <CardActions className="descriptor">
+              <CardActions>
                 <Button
                   size="small"
                   color="primary"
@@ -168,6 +167,6 @@ export function ItemList({ items }) {
           </div>
         )
       })}
-    </div>
+    </>
   )
 }

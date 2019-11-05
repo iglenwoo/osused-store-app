@@ -2,10 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import './App.css'
+import * as routes from '../../constants/routes'
 import { ItemPost } from '../../pages/ItemPost'
-import { ItemListPage } from '../../pages/ItemListPage'
+import { Items } from '../../pages/Items'
 import { Login } from '../../pages/Login'
-import { Signup } from '../../pages/Signup'
+import { SignUp } from '../../pages/SignUp'
 import { ButtonAppBar } from '../ButtonAppBar'
 import { useUserContext } from '../../context/UserContext'
 
@@ -33,18 +34,11 @@ export const App = () => {
     <Router>
       <ButtonAppBar />
       <Switch>
-        <Route path="/ItemList">
-          <ItemListPage />
-        </Route>
-        <PrivateRoute path="/ItemPost" component={ItemPost} />
-        <Route path="/Login">
-          <Login />
-        </Route>
-        <Route path="/Signup">
-          <Signup />
-        </Route>
-        <Route path="/">
-          <Redirect to="/ItemList" />
+        <Route path={routes.ITEMS} component={Items} />
+        <Route path={routes.LOGIN} component={Login} />
+        <Route path={routes.SIGN_UP} component={SignUp} />
+        <PrivateRoute path={routes.ITEM_POST} component={ItemPost} />
+        <Route path={routes.HOME}>
         </Route>
       </Switch>
     </Router>

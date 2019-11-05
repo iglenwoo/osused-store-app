@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
+import { API_BASE_URL } from '../constants/routes'
 
-const localhost = 'http://localhost:4000'
 const UserContext = React.createContext({})
 
 function logoutProcess(email, password) {
@@ -9,7 +9,7 @@ function logoutProcess(email, password) {
 }
 
 function loginProcess(email, password) {
-  return fetch(localhost + '/users/login', {
+  return fetch(API_BASE_URL + '/users/login', {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, password: password }),

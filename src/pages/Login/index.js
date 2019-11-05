@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
+import * as routes from '../../constants/routes'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
+import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useUserContext } from '../../context/UserContext'
-import { Link, useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -50,7 +51,7 @@ export function Login() {
   function handleSubmit(event) {
     event.preventDefault()
     userContext.login(email, password).then(loginSuc => {
-      if (loginSuc === true) history.push('/')
+      if (loginSuc === true) history.push(routes.ITEMS)
     })
   }
 
@@ -102,14 +103,16 @@ export function Login() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link to="/Signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link variant="body2" component={LinkSignUp}>
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}></Box>
     </Container>
   )
 }
+const LinkSignUp = React.forwardRef((props, ref) => (
+  <RouterLink innerRef={ref} to={routes.SIGN_UP} {...props} />
+))

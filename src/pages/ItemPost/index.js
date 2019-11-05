@@ -1,6 +1,8 @@
 import React from 'react'
-import './ItemPost.css'
 
+import './ItemPost.css'
+import { API_BASE_URL } from '../../constants/routes'
+import { InputLabel, SelectionLabel } from '../../components/Label/index'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -62,8 +64,8 @@ function ComposedTextField() {
     console.log('Item location: ' + state.location)
     console.log('Item description: ' + state.description)
     event.preventDefault()
-    const data = 'lol'
-    var result = fetch('http://localhost:4000/items/try', {
+    const data = new FormData(event.target)
+    var result = fetch(`${API_BASE_URL}/post-sell-item`, {
       method: 'POST',
       body: data,
     })
