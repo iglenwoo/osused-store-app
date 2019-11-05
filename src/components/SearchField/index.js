@@ -31,7 +31,7 @@ export function SearchField() {
   }
 
   return (
-    <div position="relative">
+    <div>
       <form onSubmit={handleSearchSubmit}>
         <FormControl variant="outlined" className={classes.formControl}>
           <SearchIcon />
