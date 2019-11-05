@@ -1,8 +1,7 @@
 import React from 'react'
-import './ItemPost.css'
+import { API_BASE_URL } from '../../constants/routes'
 import { InputLabel, SelectionLabel } from '../../components/Label/index'
 import { Button } from '@material-ui/core'
-import { API_BASE_URL } from '../../constants/routes'
 
 export class ItemPost extends React.Component {
   constructor(props) {

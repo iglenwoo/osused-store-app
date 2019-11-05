@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ItemList } from '../../components/ItemList'
 import { SearchField } from '../../components/SearchField'
-import { useLocation } from 'react-router-dom'
 import { API_BASE_URL } from '../../constants/routes'
+import { makeStyles, Grid, Paper } from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    minHeight: 300,
+  },
+}))
 
 export const Items = () => {
   const [items, setItems] = useState([])
   const query = new URLSearchParams(useLocation().search)
   const itemName = query.get('name')
   const category = query.get('category')
+
+  const classes = useStyles()
 
   useEffect(() => {
     async function fetchItems() {
@@ -25,21 +40,17 @@ export const Items = () => {
   }, [itemName, category])
 
   return (
-    <>
-      <SearchField />
-      <div className="items-labels">
-        <h1>Products for you</h1>
-        <h2>Recently Posted</h2>
-      </div>
-      <div className="item-gallery">
-        <div className="item-elements">
+    <div className={classes.root}>
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <SearchField />
           {items.length ? (
             <ItemList items={items} />
           ) : (
             <h2>No items currently...</h2>
           )}
-        </div>
-      </div>
-    </>
+        </Paper>
+      </Grid>
+    </div>
   )
 }

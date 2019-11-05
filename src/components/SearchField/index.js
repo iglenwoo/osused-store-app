@@ -1,23 +1,30 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import * as routes from '../../constants/routes'
-import InputBase from '@material-ui/core/InputBase'
 import { makeStyles } from '@material-ui/core/styles'
 import { CategorySelects } from '../CategorySelect'
+import { Input, Button } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-import FormControl from '@material-ui/core/FormControl'
-import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    marginWidth: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
   },
-  formControl: {
-    margin: theme.spacing(1),
+  input: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+  button: {
+    marginLeft: theme.spacing(2),
+  },
+  searchIcon: {
+    marginRight: theme.spacing(2),
   },
 }))
 
 export function SearchField() {
-  const classes = useStyles()
   const [itemName, setItemName] = useState('')
   const [category, setCategory] = useState('')
   const history = useHistory()
@@ -26,30 +33,32 @@ export function SearchField() {
     setCategory(event.target.value)
   }
 
-  function handleSearchSubmit(event) {
+  function handleSearchClick(event) {
     event.preventDefault()
     history.push(`${routes.ITEMS}?name=${itemName}&category=${category}`)
   }
 
+  const classes = useStyles()
+
   return (
-    <div>
-      <form onSubmit={handleSearchSubmit}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <SearchIcon />
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            value={itemName}
-            onChange={e => setItemName(e.target.value)}
-          />
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <CategorySelects value={category} onChange={handleChange} />
-        </FormControl>
-        <button>Search</button>
-      </form>
+    <div className={classes.root}>
+      <CategorySelects value={category} onChange={handleChange} />
+      <Input
+        className={classes.input}
+        placeholder="Search…"
+        inputProps={{ 'aria-label': 'search' }}
+        value={itemName}
+        onChange={e => setItemName(e.target.value)}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={handleSearchClick}
+      >
+        <SearchIcon className={classes.searchIcon} />
+        Search
+      </Button>
     </div>
   )
 }
