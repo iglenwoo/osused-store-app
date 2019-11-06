@@ -39,6 +39,7 @@ export const App = () => {
         <Route path={routes.SIGN_UP} component={SignUp} />
         <PrivateRoute path={routes.ITEM_POST} component={ItemPost} />
         <Route path={routes.HOME}>
+          <Redirect to={routes.ITEMS} />
         </Route>
       </Switch>
     </Router>

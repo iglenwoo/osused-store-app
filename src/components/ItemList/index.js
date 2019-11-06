@@ -11,7 +11,6 @@ import Modal from '@material-ui/core/Modal'
 import CloseIcon from '@material-ui/icons/Close'
 import { beaver } from './BEAVER.png'
 
-
 const useStyles = makeStyles(theme => ({
   wrapper: {
     position: 'relative',
