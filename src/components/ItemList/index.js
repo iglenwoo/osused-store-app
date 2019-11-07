@@ -44,7 +44,7 @@ export function ItemList({ items }) {
 
   const [openCard, setOpenCard] = React.useState(false)
   const [openPrice, setOpenPrice] = React.useState(false)
-
+  const [openDelete, setOpenDelete] = React.useState(false)
   const id = 0
   let [itemIndex, setOpenItem] = React.useState(items[id])
 
@@ -60,9 +60,16 @@ export function ItemList({ items }) {
     setOpenPrice(prev => !prev)
   }
 
+  function handleClickDelete(index) {
+    // alert('Delete fault!!')
+    itemIndex = items[index]
+    setOpenItem(items[index])
+    setOpenDelete(prev => !prev)
+  }
+
   const handleClickAway = () => setOpenCard(false)
   const handleClickAwayPrice = () => setOpenPrice(false)
-
+  const handleClickAwayDelete = () => setOpenDelete(false)
   return (
     <div className={classes.root}>
       {items.map((item, index) => {
@@ -159,6 +166,30 @@ export function ItemList({ items }) {
                     <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
                     <h2>Owner Mail </h2>
                     <p>{itemIndex.ownerMail}</p>
+                  </div>
+                </Modal>
+              </CardActions>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  aria-controls="delete-menu"
+                  aria-haspopup="true"
+                  key={index}
+                  onClick={handleClickDelete.bind(this, index)}
+                >
+                  Delete
+                </Button>
+                <Modal
+                  aria-labelledby="delete-modal-title"
+                  aria-describedby="delete-modal-description"
+                  open={openDelete}
+                  onClose={handleClickAwayDelete}
+                >
+                  <div className={classes.paper}>
+                    <h1>Delete</h1>
+                    <h2>Owner Name </h2> <p>{item._id}</p>
+                    {/* <p>{itemIndex.ownerMail}</p> */}
                   </div>
                 </Modal>
               </CardActions>
