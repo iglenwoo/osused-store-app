@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import CloseIcon from '@material-ui/icons/Close'
+import { beaver } from '../../pages/Items/BEAVER.png'
+import { API_BASE_URL } from '../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -60,11 +62,23 @@ export function ItemList({ items }) {
     setOpenPrice(prev => !prev)
   }
 
-  function handleClickDelete(index) {
-    // alert('Delete fault!!')
-    itemIndex = items[index]
-    setOpenItem(items[index])
-    setOpenDelete(prev => !prev)
+  function handleClickDelete(item) {
+    // const data = new FormData(item._id)
+    var result = fetch(`${API_BASE_URL}/items/${item._id}`, {
+      method: 'POST',
+      body: item._id,
+    })
+    result
+      .then(response => response.json())
+      .then(responseData => {
+        alert('Delete Success!!')
+        window.location.reload() 
+      })
+      .catch(function(err) {
+        console.log(err)
+        alert(err)
+      })
+      
   }
 
   const handleClickAway = () => setOpenCard(false)
@@ -175,8 +189,8 @@ export function ItemList({ items }) {
                   color="primary"
                   aria-controls="delete-menu"
                   aria-haspopup="true"
-                  key={index}
-                  onClick={handleClickDelete.bind(this, index)}
+                  key={item}
+                  onClick={handleClickDelete.bind(this, item)}
                 >
                   Delete
                 </Button>
