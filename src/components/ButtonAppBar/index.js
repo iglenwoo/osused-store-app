@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import * as routes from '../../constants/routes'
@@ -17,6 +17,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
 import Fade from '@material-ui/core/Fade'
 import Paper from '@material-ui/core/Paper'
+import Link from '@material-ui/core/Link'
 import { ItemPost } from '../../pages/ItemPost'
 import { useUserContext } from '../../context/UserContext'
 
@@ -47,15 +48,14 @@ const divStyle = {
 
 export function ButtonAppBar() {
   const { userInfo, logout } = useUserContext()
-  const history = useHistory()
 
   const signOut = () => {
     logout()
   }
 
-  const handleTitle = event => {
-    history.push('/ItemList')
-  }
+  const LinkItems = React.forwardRef((props, ref) => (
+    <RouterLink innerRef={ref} to={routes.ITEMS} {...props} />
+  ))
 
   const classes = useStyles()
 
@@ -65,9 +65,8 @@ export function ButtonAppBar() {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link
-              to="/ItemList"
               style={{ color: 'white', textDecoration: 'none' }}
-              onClick={handleTitle}
+              component={LinkItems}
             >
               OSUsed Store
             </Link>
