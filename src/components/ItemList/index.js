@@ -11,8 +11,18 @@ import Modal from '@material-ui/core/Modal'
 import { beaver } from '../../pages/Items/BEAVER.png'
 
 const useStyles = makeStyles(theme => ({
-  wrapper: {
-    position: 'relative',
+  root: {
+    marginWidth: theme.spacing(2),
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  item: {
+    padding: theme.spacing(1),
+  },
+  card: {
+    minWidth: 350,
   },
   paper: {
     position: 'absolute',
@@ -23,15 +33,6 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid',
     padding: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 400,
-  },
-  card: {
-    maxWidth: 345,
   },
   media: {
     height: 140,
@@ -63,10 +64,10 @@ export function ItemList({ items }) {
   const handleClickAwayPrice = () => setOpenPrice(false)
 
   return (
-    <>
+    <div className={classes.root}>
       {items.map((item, index) => {
         return (
-          <div key={index}>
+          <div key={index} className={classes.item}>
             <Card className={classes.card}>
               <CardActionArea>
                 <CardMedia
@@ -146,6 +147,6 @@ export function ItemList({ items }) {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
