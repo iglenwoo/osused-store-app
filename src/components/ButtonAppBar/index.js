@@ -49,8 +49,14 @@ const divStyle = {
 export function ButtonAppBar() {
   const { userInfo, logout } = useUserContext()
 
+  const history = useHistory()
+
   const signOut = () => {
     logout()
+  }
+
+  const Homedir = event => {
+    history.push(routes.HOME)
   }
 
   const LinkItems = React.forwardRef((props, ref) => (
@@ -70,6 +76,9 @@ export function ButtonAppBar() {
             >
               OSUsed Store
             </Link>
+            <Button color="inherit" onClick={Homedir}>
+              Home
+            </Button>
           </Typography>
           {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
