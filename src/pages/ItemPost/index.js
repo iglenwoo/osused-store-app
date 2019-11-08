@@ -1,8 +1,6 @@
 import React from 'react'
 
-import './ItemPost.css'
 import { API_BASE_URL } from '../../constants/routes'
-import { InputLabel, SelectionLabel } from '../../components/Label/index'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -30,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const state = {
-  value: undefined,
+  title: undefined,
   price: undefined,
   location: undefined,
   description: undefined,
@@ -58,11 +56,6 @@ function ComposedTextField() {
   }
 
   const handleSubmit = event => {
-    console.log('Item name: ' + state.name)
-    console.log('Item price: ' + state.price)
-    console.log('Item category: ' + state.category)
-    console.log('Item location: ' + state.location)
-    console.log('Item description: ' + state.description)
     event.preventDefault()
     const data = new FormData(event.target)
     var result = fetch(`${API_BASE_URL}/post-sell-item`, {
@@ -82,17 +75,15 @@ function ComposedTextField() {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'inline-block' }}>
       <TextField
-        id="name"
-        label="Enter good name"
+        id="title"
+        label="Enter item name"
         multiline
-        fullWidth={true}
         rowsMax="4"
-        value={state.value}
+        value={state.title}
         onChange={handleChange}
         className={classes.textField}
         margin="normal"
         variant="outlined"
-        style={{ display: 'inline-block' }}
       />
       <TextField
         id="price"
@@ -116,7 +107,7 @@ function ComposedTextField() {
             id: 'category',
           }}
         >
-          <option value="" />
+          <option value={state.category}>Choose category</option>
           <option value={state.category}>Books</option>
           <option value={state.category}>Electronics</option>
           <option value={state.category}>Furniture</option>
@@ -127,7 +118,7 @@ function ComposedTextField() {
         label="Enter location"
         multiline
         rowsMax="4"
-        value={state.price}
+        value={state.location}
         onChange={handleChange}
         className={classes.textField}
         margin="normal"
@@ -138,7 +129,7 @@ function ComposedTextField() {
         label="Enter description"
         multiline
         rowsMax="4"
-        value={state.price}
+        value={state.description}
         onChange={handleChange}
         className={classes.textField}
         margin="normal"

@@ -41,29 +41,22 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const divStyle = {
-  display: 'inline',
-}
+const divStyle = { display: 'inline' }
 
 export function ButtonAppBar() {
+  const classes = useStyles()
   const history = useHistory()
-  const { userInfo, logout } = useUserContext()
   const pageHistory = useHistory()
-
-  const signOut = () => {
-    logout()
-  }
+  const { userInfo, logout } = useUserContext()
 
   const handleTitle = event => {
     pageHistory.push('/ItemList')
     history.push('/ItemList')
-  const { userInfo, logout } = useUserContext()
+  }
 
   const signOut = () => {
     logout()
   }
-
-  const classes = useStyles()
 
   return (
     <div className={classes.root}>
