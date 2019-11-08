@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Link as RouterLink } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -57,7 +58,13 @@ export function ButtonAppBar() {
   const signOut = () => {
     logout()
   }
+  
+  const LinkItems = React.forwardRef((props, ref) => (
+    <RouterLink innerRef={ref} to={routes.ITEMS} {...props} />
+  ))
 
+  const classes = useStyles()
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -65,8 +72,9 @@ export function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             <Link
               to="/ItemList"
-              style={{ color: 'white', textDecoration: 'none' }}
               onClick={handleTitle}
+              style={{ color: 'white', textDecoration: 'none' }}
+              component={LinkItems}
             >
               OSUsed Store
             </Link>
