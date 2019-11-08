@@ -62,8 +62,6 @@ export function ButtonAppBar() {
   const LinkItems = React.forwardRef((props, ref) => (
     <RouterLink innerRef={ref} to={routes.ITEMS} {...props} />
   ))
-
-  const classes = useStyles()
   
   return (
     <div className={classes.root}>
