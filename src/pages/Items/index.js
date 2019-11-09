@@ -22,7 +22,6 @@ export const Items = () => {
   const query = new URLSearchParams(useLocation().search)
   const itemName = query.get('name')
   const category = query.get('category')
-
   const classes = useStyles()
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export const Items = () => {
         method: 'GET',
       })
       const items = await response.json()
-      setItems(items)
+      setItems(items.reverse())
     }
 
     fetchItems().catch(e => console.error(e))
