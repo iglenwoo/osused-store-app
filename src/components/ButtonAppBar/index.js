@@ -141,18 +141,12 @@ function AvartarButton({ signOut }) {
 function UnAuthedButtons() {
   const history = useHistory()
 
-  const handleSignUp = event => {
-    history.push(routes.SIGN_UP)
-  }
   const handleLogin = event => {
     history.push(routes.LOGIN)
   }
 
   return (
     <>
-      <Button color="inherit" onClick={handleSignUp}>
-        SignUp
-      </Button>
       <Button color="inherit" onClick={handleLogin}>
         Login
       </Button>
