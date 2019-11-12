@@ -29,26 +29,30 @@ function loginProcess(email, password) {
 }
 
 function useProvideAuth() {
-  const [userInfo, setUserInfo] = useState(null)
-  const [token, setToken] = useState('')
+  const key = 'token'
+  // token include user email
+  const [token, setToken] = useState(localStorage.getItem(key) || '')
+  const [isAuth, setIsAuth] = useState(token !== '')
 
   const login = (email, password) => {
     return loginProcess(email, password).then(respData => {
       if (respData == null) return false
-      setUserInfo(respData.user)
       setToken(respData.token)
+      setIsAuth(true)
+      localStorage.setItem(key, respData.token)
       return true
     })
   }
 
   const logout = (email, password) => {
-    setUserInfo(null)
     setToken('')
+    setIsAuth(false)
+    localStorage.removeItem(key)
     return logoutProcess(email, password)
   }
 
   return {
-    userInfo,
+    isAuth,
     token,
     login,
     logout,

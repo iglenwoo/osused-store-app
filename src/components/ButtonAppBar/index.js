@@ -47,7 +47,7 @@ const divStyle = {
 }
 
 export function ButtonAppBar() {
-  const { userInfo, logout } = useUserContext()
+  const { isAuth, logout } = useUserContext()
 
   const signOut = () => {
     logout()
@@ -71,7 +71,7 @@ export function ButtonAppBar() {
               OSUsed Store
             </Link>
           </Typography>
-          {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
+          {isAuth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
       </AppBar>
     </div>
