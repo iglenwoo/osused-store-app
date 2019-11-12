@@ -38,12 +38,10 @@ const useStyles = makeStyles(theme => ({
 export function ButtonAppBar() {
   const classes = useStyles()
   const history = useHistory()
-  const pageHistory = useHistory()
   const { userInfo, logout } = useUserContext()
 
   const handleTitle = () => {
-    pageHistory.push('/ItemList')
-    history.push('/ItemList')
+    history.push(routes.ITEMS)
   }
 
   const signOut = () => {
