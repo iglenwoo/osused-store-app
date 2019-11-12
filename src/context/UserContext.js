@@ -19,7 +19,6 @@ function loginProcess(email, password) {
         alert(response.statusText)
         return null
       } else {
-        alert('Login success!!')
         return response.json()
       }
     })
