@@ -1,17 +1,20 @@
 import React from 'react'
 import { API_BASE_URL } from '../../constants/routes'
 import { useHistory } from 'react-router-dom'
-import * as routes from '../../constants/routes'
-import { Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import Typography from '@material-ui/core/Typography'
+import {
+  Button,
+  makeStyles,
+  Typography,
+  Container,
+  CssBaseline,
+  TextField,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  Select,
+} from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import Container from '@material-ui/core/Container'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { useUserContext } from '../../context/UserContext'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -62,58 +65,78 @@ export class ItemPost extends React.Component {
 }
 
 function ComposedTextField() {
+  const { token } = useUserContext()
   const history = useHistory()
-  const classes = useStyles()
+
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = React.useState(0)
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth)
   }, [])
 
-  const clean = () => {
-    state.title = undefined
-    state.price = undefined
-    state.location = undefined
-    state.description = undefined
-    state.category = undefined
-  }
   const handleChange = event => {
     const target = event.target
     const value = target.value
     const name = target.id
     state[name] = value
   }
+
+  const isItemInvalid = () => {
+    if (!state.title) {
+      alert('Please enter item name.')
+      return false
+    }
+    if (!state.price) {
+      alert('Please enter price.')
+      if (state.price < 0) {
+        alert('Please enter positive number as price.')
+      }
+      return false
+    }
+    if (!state.category) {
+      alert('Please choose a category.')
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = event => {
     event.preventDefault()
-    //const data = new FormData(event.target)
-    var result = fetch(`${API_BASE_URL}/items-post`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: state.title,
-        price: state.price,
-        category: state.category,
-        location: state.location,
-        description: state.description,
-        createdAt: undefined,
-      }),
+    if (!isItemInvalid()) return
+
+    let headers = new Headers({
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     })
-    result
+
+    headers.append('Authorization', 'Bearer ' + token)
+    const body = JSON.stringify({
+      name: state.title,
+      price: state.price,
+      category: state.category,
+      location: state.location,
+      description: state.description,
+    })
+
+    fetch(`${API_BASE_URL}/items`, {
+      method: 'POST',
+      headers,
+      body,
+    })
       .then(response => {
-        if (response.status !== 200) alert(response.statusText)
-        else {
-          alert(response)
-          history.push(`${routes.ITEMS}`)
+        if (response.status !== 200) {
+          alert(response.statusText)
+          return
         }
+        history.push(history.goBack)
       })
-      .catch(function(err) {
+      .catch(err => {
         console.log(err)
       })
-    clean()
   }
+
+  const classes = useStyles()
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -126,8 +149,6 @@ function ComposedTextField() {
           <TextField
             id="title"
             label="Enter item name"
-            multiline
-            rowsMax="4"
             value={state.title}
             onChange={handleChange}
             className={classes.textField}
@@ -137,8 +158,12 @@ function ComposedTextField() {
           <TextField
             id="price"
             label="Enter price"
-            multiline
-            rowsMax="4"
+            type="number"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
             value={state.price}
             onChange={handleChange}
             className={classes.textField}
@@ -168,8 +193,6 @@ function ComposedTextField() {
           <TextField
             id="location"
             label="Enter location"
-            multiline
-            rowsMax="4"
             value={state.location}
             onChange={handleChange}
             className={classes.textField}
