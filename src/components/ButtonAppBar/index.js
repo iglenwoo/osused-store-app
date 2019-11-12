@@ -94,9 +94,6 @@ function AvartarButton({ signOut }) {
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const handleProfile = () => {
-    setAnchorEl(null)
-  }
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
@@ -135,7 +132,6 @@ function AvartarButton({ signOut }) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       </Menu>
     </div>
