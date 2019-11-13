@@ -44,23 +44,18 @@ export function ButtonAppBar() {
     history.push(routes.ITEMS)
   }
 
-  const history = useHistory()
-
   const signOut = () => {
     logout()
   }
-
 
   const handleHomeClick = event => {
     history.push(routes.HOME)
   }
 
   const LinkItems = React.forwardRef((props, ref) => (
-    <RouterLink innerRef={ref} to={routes.ITEMS} {...props} />
+    <routerLink innerRef={ref} to={routes.ITEMS} {...props} />
   ))
 
-  const classes = useStyles()
-  
   return (
     <div className={classes.root}>
       <AppBar position="static">
