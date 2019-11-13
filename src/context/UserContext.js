@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { API_BASE_URL } from '../constants/routes'
 
 const UserContext = React.createContext({})
@@ -32,29 +32,44 @@ function loginProcess(email, password) {
 function useProvideAuth() {
   const key = 'token'
   // token include user email
-  const [token, setToken] = useState(localStorage.getItem(key) || '')
-  const [isAuth, setIsAuth] = useState(token !== '')
+  const [auth, setAuth] = useState({ Uid: '', token: '', isAuth: false })
+
+  useEffect(() => {
+    async function fetchToken() {
+      const res = await fetch(API_BASE_URL + '/chkToken', {
+        method: 'GET',
+        headers: { authorization: localStorage.getItem(key) },
+      })
+      if (res.status !== 200) return console.log(res.statusText)
+
+      const data = await res.json()
+      setAuth({
+        Uid: data.userId,
+        token: localStorage.getItem(key),
+        isAuth: true,
+      })
+    }
+
+    fetchToken().catch(e => console.error(e))
+  }, [])
 
   const login = (email, password) => {
     return loginProcess(email, password).then(respData => {
       if (respData == null) return false
-      setToken(respData.token)
-      setIsAuth(true)
+      setAuth({ Uid: respData.user._id, token: respData.token, isAuth: true })
       localStorage.setItem(key, respData.token)
       return true
     })
   }
 
   const logout = (email, password) => {
-    setToken('')
-    setIsAuth(false)
+    setAuth({ Uid: '', token: '', isAuth: false })
     localStorage.removeItem(key)
     return logoutProcess(email, password)
   }
 
   return {
-    isAuth,
-    token,
+    auth,
     login,
     logout,
   }
