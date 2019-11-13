@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { API_BASE_URL } from '../constants/routes'
 
 const UserContext = React.createContext({})
@@ -27,28 +27,49 @@ function loginProcess(email, password) {
     })
 }
 
+//TODO: need to check is token expired or not
 function useProvideAuth() {
-  const [userInfo, setUserInfo] = useState(null)
-  const [token, setToken] = useState('')
+  const key = 'token'
+  // token include user email
+  const [auth, setAuth] = useState({ Uid: '', token: '', isAuth: false })
+
+  useEffect(() => {
+    async function fetchToken() {
+      const res = await fetch(API_BASE_URL + '/chkToken', {
+        method: 'GET',
+        headers: { authorization: localStorage.getItem(key) },
+      })
+      if (res.status !== 200) return console.log(res.statusText)
+
+      const data = await res.json()
+      setAuth({
+        Uid: data.userId,
+        token: localStorage.getItem(key),
+        isAuth: true,
+      })
+    }
+
+    fetchToken().catch(e => console.error(e))
+  }, [])
 
   const login = (email, password) => {
     return loginProcess(email, password).then(respData => {
       if (respData == null) return false
-      setUserInfo(respData.user)
-      setToken(respData.token)
+      setAuth({ Uid: respData.user._id, token: respData.token, isAuth: true })
+      localStorage.setItem(key, respData.token)
       return true
     })
   }
 
   const logout = (email, password) => {
-    setUserInfo(null)
-    setToken('')
+    setAuth({ Uid: '', token: '', isAuth: false })
+    localStorage.removeItem(key)
     return logoutProcess(email, password)
   }
 
   return {
-    userInfo,
-    token,
+    isAuth: auth.isAuth,
+    auth,
     login,
     logout,
   }
