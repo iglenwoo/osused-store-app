@@ -11,6 +11,9 @@ import Modal from '@material-ui/core/Modal'
 import CloseIcon from '@material-ui/icons/Close'
 import { beaver } from '../../pages/Items/BEAVER.png'
 import { API_BASE_URL } from '../../constants/routes'
+import { useUserContext } from '../../context/UserContext'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
+import * as routes from '../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,11 +64,12 @@ export function ItemList({ items }) {
     setOpenItem(items[index])
     setOpenPrice(prev => !prev)
   }
-
+  function unauthhandleClickPrice() {
+    setOpenPrice(prev => !prev)
+  }
   function handleClickDelete(item) {
-    // const data = new FormData(item._id)
     var result = fetch(`${API_BASE_URL}/items/${item._id}`, {
-      method: 'POST',
+      method: 'DELETE',
       body: item._id,
     })
     result
@@ -78,12 +82,106 @@ export function ItemList({ items }) {
         console.log(err)
         alert(err)
       })
-      
   }
-
+  function CustomerButtons({index}) {
+    return (
+      <>
+        <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          key={index}
+          onClick={handleClickPrice.bind(this, index)}
+        >
+          Buy
+        </Button>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={openPrice}
+          onClose={handleClickAwayPrice}
+        >
+          <div className={classes.paper}>
+            <h1>Excelent choice!</h1>
+            <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
+            <h2>Owner Mail </h2>
+            <p>{itemIndex.ownerMail}</p>
+          </div>
+        </Modal>
+      </CardActions>
+      </>
+    )
+  }
+  function DeleteButtons({item}) {
+    return (
+      <>
+        <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          aria-controls="delete-menu"
+          aria-haspopup="true"
+          key={item}
+          onClick={handleClickDelete.bind(this, item)}
+        >
+          Delete
+        </Button>
+        <Modal
+          aria-labelledby="delete-modal-title"
+          aria-describedby="delete-modal-description"
+          open={openDelete}
+          onClose={handleClickAwayDelete}
+        >
+          <div className={classes.paper}>
+            <h1>Delete</h1>
+            <h2>Owner Name </h2> <p>{item._id}</p>
+          </div>
+        </Modal>
+      </CardActions>
+      </>
+    )
+  }
+  function AuthedButtons({userInfo,item,index}) {
+    return (
+      <>
+      {userInfo._id==item.ownerId ? <DeleteButtons item={item}/> : <CustomerButtons  index={index}/>}
+      </>
+    )
+  }
+  function UnAuthedButtons() {
+    return (
+      <>
+      <CardActions>
+      <Button
+        size="small"
+        color="primary"
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={unauthhandleClickPrice.bind()}
+      >
+        Buy
+      </Button>
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={openPrice}
+        onClose={handleClickAwayPrice}
+      >
+        <div className={classes.paper}>
+          <h1>Please Log In First</h1>
+        </div>
+      </Modal>
+    </CardActions>
+      </>
+    )
+  }
   const handleClickAway = () => setOpenCard(false)
   const handleClickAwayPrice = () => setOpenPrice(false)
   const handleClickAwayDelete = () => setOpenDelete(false)
+  const { userInfo } = useUserContext()
+
   return (
     <div className={classes.root}>
       {items.map((item, index) => {
@@ -152,6 +250,7 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActionArea>
+<<<<<<< 0ee31b2b062cda819a1a0387c4c273962d43d05f
               <CardActions>
                 <Button
                   size="small"
@@ -207,6 +306,9 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActions>
+=======
+              {(userInfo) ? <AuthedButtons userInfo={userInfo} item={item} index={index}/> : <UnAuthedButtons />}
+>>>>>>> add user check
             </Card>
           </div>
         )
