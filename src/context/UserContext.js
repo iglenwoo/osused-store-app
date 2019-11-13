@@ -68,6 +68,7 @@ function useProvideAuth() {
   }
 
   return {
+    isAuth: auth.isAuth,
     auth,
     login,
     logout,

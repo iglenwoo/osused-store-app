@@ -11,13 +11,13 @@ import { ButtonAppBar } from '../ButtonAppBar'
 import { useUserContext } from '../../context/UserContext'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { auth } = useUserContext()
+  const { isAuth } = useUserContext()
 
   return (
     <Route
       {...rest}
       render={props =>
-        auth.isAuth !== null ? (
+        isAuth !== null ? (
           <Component {...props} />
         ) : (
           <Redirect
