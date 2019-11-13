@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useUserContext } from '../../context/UserContext'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { validateEmail } from '../../utils/common'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -50,6 +51,10 @@ export function Login() {
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (!validateEmail(email)) {
+      alert('Please enter a correct email')
+      return
+    }
     userContext.login(email, password).then(loginSuc => {
       if (loginSuc === true) history.push(routes.ITEMS)
     })
