@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Link as RouterLink } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
 import * as routes from '../../constants/routes'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -12,13 +12,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { AccountCircle } from '@material-ui/icons'
-import Popper from '@material-ui/core/Popper'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state'
-import Fade from '@material-ui/core/Fade'
-import Paper from '@material-ui/core/Paper'
-import Link from '@material-ui/core/Link'
-import { ItemPost } from '../../pages/ItemPost'
 import { useUserContext } from '../../context/UserContext'
 
 const useStyles = makeStyles(theme => ({
@@ -42,12 +35,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const divStyle = {
-  display: 'inline',
-}
-
 export function ButtonAppBar() {
-  const { userInfo, logout } = useUserContext()
+  const { isAuth, logout } = useUserContext()
+  const classes = useStyles()
+  const history = useHistory()
+
+  const handleTitle = () => {
+    history.push(routes.ITEMS)
+  }
 
   const history = useHistory()
 
@@ -55,7 +50,8 @@ export function ButtonAppBar() {
     logout()
   }
 
-  const Homedir = event => {
+
+  const handleHomeClick = event => {
     history.push(routes.HOME)
   }
 
@@ -64,23 +60,24 @@ export function ButtonAppBar() {
   ))
 
   const classes = useStyles()
-
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link
+              to="/ItemList"
               style={{ color: 'white', textDecoration: 'none' }}
-              component={LinkItems}
+              onClick={handleTitle}
             >
               OSUsed Store
             </Link>
-            <Button color="inherit" onClick={Homedir}>
+            <Button color="inherit" onClick={handleHomeClick}>
               Home
             </Button>
           </Typography>
-          {userInfo ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
+          {isAuth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
       </AppBar>
     </div>
@@ -100,14 +97,15 @@ function AvartarButton({ signOut }) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
+  const handleAddItem = () => {
+    history.push(`${routes.ITEM_POST}`)
+  }
+
   const handleMenu = event => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
-  const handleProfile = () => {
     setAnchorEl(null)
   }
   const handleSignOut = () => {
@@ -120,36 +118,14 @@ function AvartarButton({ signOut }) {
 
   return (
     <div>
-      <PopupState variant="popper" popupId="demo-popup-popper">
-        {popupState => (
-          <div style={divStyle}>
-            <Button variant="contained" {...bindToggle(popupState)}>
-              Add your product
-            </Button>
-            <Popper {...bindPopper(popupState)} transition>
-              {({ TransitionProps }) => (
-                <ClickAwayListener onClickAway={popupState.close}>
-                  <Fade {...TransitionProps} timeout={350}>
-                    <Paper>
-                      <Typography
-                        className={classes.typography}
-                        component={'span'}
-                      >
-                        <ItemPost />
-                      </Typography>
-                    </Paper>
-                  </Fade>
-                </ClickAwayListener>
-              )}
-            </Popper>
-          </div>
-        )}
-      </PopupState>
+      <Button variant="contained" onClick={handleAddItem}>
+        Add your product
+      </Button>
       <IconButton
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
-        stule={divStyle}
+        style={{ display: 'inline' }}
         onClick={handleMenu}
         color="inherit"
       >
@@ -170,7 +146,6 @@ function AvartarButton({ signOut }) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       </Menu>
     </div>
@@ -180,18 +155,12 @@ function AvartarButton({ signOut }) {
 function UnAuthedButtons() {
   const history = useHistory()
 
-  const handleSignUp = event => {
-    history.push(routes.SIGN_UP)
-  }
   const handleLogin = event => {
     history.push(routes.LOGIN)
   }
 
   return (
     <>
-      <Button color="inherit" onClick={handleSignUp}>
-        SignUp
-      </Button>
       <Button color="inherit" onClick={handleLogin}>
         Login
       </Button>

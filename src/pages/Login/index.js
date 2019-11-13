@@ -61,7 +61,7 @@ export function Login() {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
 
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -99,7 +99,7 @@ export function Login() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Login
           </Button>
           <Grid container>
             <Grid item>
