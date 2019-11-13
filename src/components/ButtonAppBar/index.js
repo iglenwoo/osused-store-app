@@ -48,6 +48,14 @@ export function ButtonAppBar() {
     logout()
   }
 
+  const handleHomeClick = event => {
+    history.push(routes.HOME)
+  }
+
+  const LinkItems = React.forwardRef((props, ref) => (
+    <routerLink innerRef={ref} to={routes.ITEMS} {...props} />
+  ))
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -60,6 +68,9 @@ export function ButtonAppBar() {
             >
               OSUsed Store
             </Link>
+            <Button color="inherit" onClick={handleHomeClick}>
+              Home
+            </Button>
           </Typography>
           {isAuth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
         </Toolbar>
