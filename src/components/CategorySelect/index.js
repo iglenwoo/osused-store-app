@@ -37,9 +37,9 @@ export function CategorySelects(props) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={'food'}>food</MenuItem>
-        <MenuItem value={'20'}>Twenty</MenuItem>
-        <MenuItem value={'30'}>Thirty</MenuItem>
+        <MenuItem value={'books'}>Books</MenuItem>
+        <MenuItem value={'electronics'}>Electronics</MenuItem>
+        <MenuItem value={'furniture'}>Furniture</MenuItem>
       </Select>
     </FormControl>
   )

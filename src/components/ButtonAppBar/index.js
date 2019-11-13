@@ -39,11 +39,9 @@ export function ButtonAppBar() {
   const { auth, logout } = useUserContext()
   const classes = useStyles()
   const history = useHistory()
-  const pageHistory = useHistory()
 
   const handleTitle = () => {
-    pageHistory.push('/ItemList')
-    history.push('/ItemList')
+    history.push(routes.ITEMS)
   }
 
   const signOut = () => {
@@ -98,9 +96,6 @@ function AvartarButton({ signOut }) {
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const handleProfile = () => {
-    setAnchorEl(null)
-  }
   const handleSignOut = () => {
     signOut()
     setAnchorEl(null)
@@ -139,7 +134,6 @@ function AvartarButton({ signOut }) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       </Menu>
     </div>
@@ -149,18 +143,12 @@ function AvartarButton({ signOut }) {
 function UnAuthedButtons() {
   const history = useHistory()
 
-  const handleSignUp = event => {
-    history.push(routes.SIGN_UP)
-  }
   const handleLogin = event => {
     history.push(routes.LOGIN)
   }
 
   return (
     <>
-      <Button color="inherit" onClick={handleSignUp}>
-        SignUp
-      </Button>
       <Button color="inherit" onClick={handleLogin}>
         Login
       </Button>
