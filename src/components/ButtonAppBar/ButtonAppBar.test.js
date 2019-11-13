@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { ButtonAppBar } from './index'
+import { UserProvider } from '../../context/UserContext'
 
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({
@@ -9,5 +10,9 @@ jest.mock('react-router-dom', () => ({
 }))
 
 it('renders the app bar', () => {
-  shallow(<ButtonAppBar />)
+  shallow(
+    <UserProvider>
+      <ButtonAppBar />
+    </UserProvider>
+  )
 })
