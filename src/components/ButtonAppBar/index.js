@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export function ButtonAppBar() {
-  const { isAuth, logout } = useUserContext()
+  const { auth, logout } = useUserContext()
   const classes = useStyles()
   const history = useHistory()
 
@@ -72,7 +72,11 @@ export function ButtonAppBar() {
               Home
             </Button>
           </Typography>
-          {isAuth ? <AuthedButtons signOut={signOut} /> : <UnAuthedButtons />}
+          {auth.isAuth ? (
+            <AuthedButtons signOut={signOut} />
+          ) : (
+            <UnAuthedButtons />
+          )}
         </Toolbar>
       </AppBar>
     </div>
