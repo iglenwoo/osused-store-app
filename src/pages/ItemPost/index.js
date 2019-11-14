@@ -1,5 +1,5 @@
 import React from 'react'
-import { API_BASE_URL } from '../../constants/routes'
+import { API_BASE_URL, default as routes, ITEMS } from '../../constants/routes'
 import { useHistory } from 'react-router-dom'
 import {
   Button,
@@ -65,9 +65,8 @@ export class ItemPost extends React.Component {
 }
 
 function ComposedTextField() {
-  const { token } = useUserContext()
+  const { auth } = useUserContext()
   const history = useHistory()
-
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = React.useState(0)
   React.useEffect(() => {
@@ -79,6 +78,14 @@ function ComposedTextField() {
     const value = target.value
     const name = target.id
     state[name] = value
+  }
+
+  const clean = () => {
+    state.title = undefined
+    state.category = undefined
+    state.description = undefined
+    state.location = undefined
+    state.price = undefined
   }
 
   const isItemInvalid = () => {
@@ -101,6 +108,7 @@ function ComposedTextField() {
   }
 
   const handleSubmit = event => {
+    console.log('SMTH')
     event.preventDefault()
     if (!isItemInvalid()) return
 
@@ -109,13 +117,15 @@ function ComposedTextField() {
       'Content-Type': 'application/json',
     })
 
-    headers.append('Authorization', 'Bearer ' + token)
+    headers.append('Authorization', 'Bearer ' + auth.token)
+    console.log(auth.token)
     const body = JSON.stringify({
       name: state.title,
       price: state.price,
       category: state.category,
       location: state.location,
       description: state.description,
+      ownerId: undefined,
     })
 
     fetch(`${API_BASE_URL}/items`, {
@@ -128,7 +138,10 @@ function ComposedTextField() {
           alert(response.statusText)
           return
         }
-        history.push(history.goBack)
+        {
+          clean()
+          history.goBack(ITEMS)
+        }
       })
       .catch(err => {
         console.log(err)
@@ -136,7 +149,6 @@ function ComposedTextField() {
   }
 
   const classes = useStyles()
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -219,6 +231,10 @@ function ComposedTextField() {
             margin="normal"
             style={{ dispay: 'inline' }}
           >
+            {/*
+          <RouterLink onClick = {handleSubmit} to= { ITEMS } >
+            Add item
+            </RouterLink>*/}
             Add item
           </Button>
         </form>
