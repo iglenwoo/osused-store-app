@@ -37,7 +37,7 @@ function useProvideAuth() {
     async function fetchToken() {
       const res = await fetch(API_BASE_URL + '/chkToken', {
         method: 'GET',
-        headers: { authorization: localStorage.getItem(key) },
+        headers: { authorization: 'Bearer ' + localStorage.getItem(key) },
       })
       if (res.status !== 200) return console.log(res.statusText)
 
