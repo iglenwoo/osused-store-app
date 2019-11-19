@@ -42,6 +42,10 @@ export function SearchField() {
     history.push(`${routes.ITEMS}?name=${itemName}&category=${category.value}`)
   }
 
+  function handleEnterClick(event) {
+    if (event.key === 'Enter') handleSearchClick(event)
+  }
+
   const classes = useStyles()
 
   return (
@@ -53,6 +57,7 @@ export function SearchField() {
         inputProps={{ 'aria-label': 'search' }}
         value={itemName}
         onChange={e => setItemName(e.target.value)}
+        onKeyDown={handleEnterClick}
       />
       <Button
         variant="contained"
