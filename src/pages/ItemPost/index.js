@@ -196,10 +196,10 @@ function ComposedTextField() {
                 id: 'category',
               }}
             >
-              <option></option>
-              <option value={state.category}>Books</option>
-              <option value={state.category}>Electronics</option>
-              <option value={state.category}>Furniture</option>
+              <option>All</option>
+              <option value={'books'}>Books</option>
+              <option value={'electronics'}>Electronics</option>
+              <option value={'furniture'}>Furniture</option>
             </Select>
           </FormControl>
           <TextField

@@ -35,7 +35,7 @@ export function CategorySelects(props) {
         labelWidth={labelWidth}
       >
         <MenuItem value="">
-          <em>None</em>
+          <em>All</em>
         </MenuItem>
         <MenuItem value={'books'}>Books</MenuItem>
         <MenuItem value={'electronics'}>Electronics</MenuItem>

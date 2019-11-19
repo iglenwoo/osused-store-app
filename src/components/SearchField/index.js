@@ -31,11 +31,15 @@ export function SearchField() {
 
   const handleChange = event => {
     setCategory(event.target.value)
+    event.preventDefault()
+    history.push(
+      `${routes.ITEMS}?name=${itemName}&category=${event.target.value}`
+    )
   }
 
   function handleSearchClick(event) {
     event.preventDefault()
-    history.push(`${routes.ITEMS}?name=${itemName}&category=${category}`)
+    history.push(`${routes.ITEMS}?name=${itemName}&category=${category.value}`)
   }
 
   const classes = useStyles()
