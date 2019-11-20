@@ -33,13 +33,13 @@ export function SearchField() {
     setCategory(event.target.value)
     event.preventDefault()
     history.push(
-      `${routes.ITEMS}?name=${itemName}&category=${event.target.value}`
+      `${routes.ITEMS}/?name=${itemName}&category=${event.target.value}`
     )
   }
 
   function handleSearchClick(event) {
     event.preventDefault()
-    history.push(`${routes.ITEMS}?name=${itemName}&category=${category.value}`)
+    history.push(`${routes.ITEMS}?name=${itemName}&category=${category}`)
   }
 
   function handleEnterClick(event) {
