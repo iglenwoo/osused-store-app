@@ -108,7 +108,6 @@ function ComposedTextField() {
   }
 
   const handleSubmit = event => {
-    console.log('SMTH')
     event.preventDefault()
     if (!isItemInvalid()) return
 
@@ -118,7 +117,6 @@ function ComposedTextField() {
     })
 
     headers.append('Authorization', 'Bearer ' + auth.token)
-    console.log(auth.token)
     const body = JSON.stringify({
       name: state.title,
       price: state.price,
@@ -198,8 +196,19 @@ function ComposedTextField() {
             >
               <option>All</option>
               <option value={'books'}>Books</option>
+              <option value={'music'}>Music</option>
+              <option value={'moovies'}>Moovies</option>
+              <option value={'games-comics'}>Games and Comicbooks</option>
               <option value={'electronics'}>Electronics</option>
+              <option value={'bikes'}>Bikes and other Vehicles</option>
+              <option value={'clothes'}>Clothes</option>
+              <option value={'footwear'}>Footwear</option>
+              <option value={'accessoiries'}>Accessoiries</option>
               <option value={'furniture'}>Furniture</option>
+              <option value={'home-garden'}>Home and Garden</option>
+              <option value={'sports'}>Sports</option>
+              <option value={'leisure'}>Leisure</option>
+              <option value={'baby'}>Baby and Child</option>
             </Select>
           </FormControl>
           <TextField
@@ -231,10 +240,6 @@ function ComposedTextField() {
             margin="normal"
             style={{ dispay: 'inline' }}
           >
-            {/*
-          <RouterLink onClick = {handleSubmit} to= { ITEMS } >
-            Add item
-            </RouterLink>*/}
             Add item
           </Button>
         </form>
