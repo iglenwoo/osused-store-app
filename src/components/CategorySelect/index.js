@@ -38,8 +38,19 @@ export function CategorySelects(props) {
           <em>None</em>
         </MenuItem>
         <MenuItem value={'books'}>Books</MenuItem>
+        <MenuItem value={'music'}>Music</MenuItem>
+        <MenuItem value={'moovies'}>Moovies</MenuItem>
+        <MenuItem value={'games-comics'}>Games and Comicbooks</MenuItem>
         <MenuItem value={'electronics'}>Electronics</MenuItem>
+        <MenuItem value={'bikes'}>Bikes and other Vehicles</MenuItem>
+        <MenuItem value={'clothes'}>Clothes</MenuItem>
+        <MenuItem value={'footwear'}>Footwear</MenuItem>
+        <MenuItem value={'accessoiries'}>Accessoiries</MenuItem>
         <MenuItem value={'furniture'}>Furniture</MenuItem>
+        <MenuItem value={'home-garden'}>Home and Garden</MenuItem>
+        <MenuItem value={'sports'}>Sports</MenuItem>
+        <MenuItem value={'leisure'}>Leisure</MenuItem>
+        <MenuItem value={'baby'}>Baby and Child</MenuItem>
       </Select>
     </FormControl>
   )

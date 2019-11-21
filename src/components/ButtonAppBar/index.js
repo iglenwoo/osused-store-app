@@ -113,8 +113,6 @@ function AvartarButton({ signOut }) {
     history.push(routes.LOGIN)
   }
 
-  const classes = useStyles()
-
   return (
     <div>
       <Button variant="contained" onClick={handleAddItem}>
