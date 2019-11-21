@@ -9,11 +9,8 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import CloseIcon from '@material-ui/icons/Close'
-import { beaver } from '../../pages/Items/BEAVER.png'
 import { API_BASE_URL } from '../../constants/routes'
 import { useUserContext } from '../../context/UserContext'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
-import * as routes from '../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -143,10 +140,10 @@ export function ItemList({ items }) {
       </>
     )
   }
-  function AuthedButtons({userInfo,item,index}) {
+  function AuthedButtons({auth,item,index}) {
     return (
       <>
-      {userInfo._id==item.ownerId ? <DeleteButtons item={item}/> : <CustomerButtons  index={index}/>}
+      {auth.Uid==item.ownerId ? <DeleteButtons item={item}/> : <CustomerButtons  index={index}/>}
       </>
     )
   }
@@ -180,7 +177,7 @@ export function ItemList({ items }) {
   const handleClickAway = () => setOpenCard(false)
   const handleClickAwayPrice = () => setOpenPrice(false)
   const handleClickAwayDelete = () => setOpenDelete(false)
-  const { userInfo } = useUserContext()
+  const { auth } = useUserContext()
 
   return (
     <div className={classes.root}>
@@ -250,65 +247,7 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActionArea>
-<<<<<<< 0ee31b2b062cda819a1a0387c4c273962d43d05f
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  key={index}
-                  onClick={handleClickPrice.bind(this, index)}
-                >
-                  Buy
-                </Button>
-                <Modal
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
-                  open={openPrice}
-                  onClose={handleClickAwayPrice}
-                >
-                  <div className={classes.paper}>
-                    <Button
-                      onClick={handleClickAwayPrice.bind(this, index)}
-                      style={{ left: 425, padding: 0 }}
-                    >
-                      <CloseIcon />
-                    </Button>
-                    <h1>Excellent choice!</h1>
-                    <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
-                    <h2>Owner Mail </h2>
-                    <p>{itemIndex.ownerMail}</p>
-                  </div>
-                </Modal>
-              </CardActions>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  aria-controls="delete-menu"
-                  aria-haspopup="true"
-                  key={item}
-                  onClick={handleClickDelete.bind(this, item)}
-                >
-                  Delete
-                </Button>
-                <Modal
-                  aria-labelledby="delete-modal-title"
-                  aria-describedby="delete-modal-description"
-                  open={openDelete}
-                  onClose={handleClickAwayDelete}
-                >
-                  <div className={classes.paper}>
-                    <h1>Delete</h1>
-                    <h2>Owner Name </h2> <p>{item._id}</p>
-                    {/* <p>{itemIndex.ownerMail}</p> */}
-                  </div>
-                </Modal>
-              </CardActions>
-=======
-              {(userInfo) ? <AuthedButtons userInfo={userInfo} item={item} index={index}/> : <UnAuthedButtons />}
->>>>>>> add user check
+              {(auth) ? <AuthedButtons auth={auth} item={item} index={index}/> : <UnAuthedButtons />}
             </Card>
           </div>
         )
