@@ -115,7 +115,7 @@ function AvartarButton({ signOut }) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleAddItem}>
+      <Button id="AddItem" variant="contained" onClick={handleAddItem}>
         Add your product
       </Button>
       <IconButton
