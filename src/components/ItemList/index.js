@@ -247,7 +247,7 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActionArea>
-              {(auth) ? <AuthedButtons auth={auth} item={item} index={index}/> : <UnAuthedButtons />}
+              {auth.isAuth ? <AuthedButtons auth={auth} item={item} index={index}/> : <UnAuthedButtons />}
             </Card>
           </div>
         )
