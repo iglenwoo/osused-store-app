@@ -61,19 +61,19 @@ export function ItemList({ items }) {
     setOpenItem(items[index])
     setOpenPrice(prev => !prev)
   }
-  function unauthhandleClickPrice() {
+  function handleBuyButtonNoAuthClick() {
     setOpenPrice(prev => !prev)
   }
-  function handleClickDelete(item) {
+  function handleDeleteClick(item) {
     var result = fetch(`${API_BASE_URL}/items/${item._id}`, {
       method: 'DELETE',
+      headers: { authorization: 'Bearer ' + localStorage.getItem(key) },
       body: item._id,
     })
     result
       .then(response => response.json())
       .then(responseData => {
-        alert('Delete Success!!')
-        window.location.reload() 
+        window.location.reload()
       })
       .catch(function(err) {
         console.log(err)
@@ -121,7 +121,7 @@ export function ItemList({ items }) {
           aria-controls="delete-menu"
           aria-haspopup="true"
           key={item}
-          onClick={handleClickDelete.bind(this, item)}
+          onClick={handleDeleteClick.bind(this, item)}
         >
           Delete
         </Button>
@@ -156,7 +156,7 @@ export function ItemList({ items }) {
         color="primary"
         aria-controls="simple-menu"
         aria-haspopup="true"
-        onClick={unauthhandleClickPrice.bind()}
+        onClick={handleBuyButtonNoAuthClick.bind()}
       >
         Buy
       </Button>
