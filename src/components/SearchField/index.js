@@ -52,6 +52,7 @@ export function SearchField() {
     <div className={classes.root}>
       <CategorySelects value={category} onChange={handleChange} />
       <Input
+        id="InputSearchValue"
         className={classes.input}
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
