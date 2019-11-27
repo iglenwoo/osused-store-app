@@ -67,7 +67,7 @@ export function ItemList({ items }) {
   function handleDeleteClick(item) {
     var result = fetch(`${API_BASE_URL}/items/${item._id}`, {
       method: 'DELETE',
-      headers: { authorization: 'Bearer ' + localStorage.getItem(key) },
+      headers: { authorization: 'Bearer ' + auth.token },
       body: item._id,
     })
     result
