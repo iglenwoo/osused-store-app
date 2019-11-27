@@ -37,7 +37,9 @@ export function CategorySelects(props) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={'books'}>Books</MenuItem>
+        <MenuItem id="OptBooks" value={'books'}>
+          Books
+        </MenuItem>
         <MenuItem value={'music'}>Music</MenuItem>
         <MenuItem value={'moovies'}>Moovies</MenuItem>
         <MenuItem value={'games-comics'}>Games and Comicbooks</MenuItem>
