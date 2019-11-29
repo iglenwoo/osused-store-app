@@ -80,97 +80,101 @@ export function ItemList({ items }) {
         alert(err)
       })
   }
-  function CustomerButtons({index}) {
+  function CustomerButtons({ index }) {
     return (
       <>
         <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          key={index}
-          onClick={handleClickPrice.bind(this, index)}
-        >
-          Buy
-        </Button>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={openPrice}
-          onClose={handleClickAwayPrice}
-        >
-          <div className={classes.paper}>
-            <h1>Excelent choice!</h1>
-            <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
-            <h2>Owner Mail </h2>
-            <p>{itemIndex.ownerMail}</p>
-          </div>
-        </Modal>
-      </CardActions>
+          <Button
+            size="small"
+            color="primary"
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            key={index}
+            onClick={handleClickPrice.bind(this, index)}
+          >
+            Buy
+          </Button>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={openPrice}
+            onClose={handleClickAwayPrice}
+          >
+            <div className={classes.paper}>
+              <h1>Excelent choice!</h1>
+              <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
+              <h2>Owner Mail </h2>
+              <p>{itemIndex.ownerMail}</p>
+            </div>
+          </Modal>
+        </CardActions>
       </>
     )
   }
-  function DeleteButtons({item}) {
+  function DeleteButtons({ item }) {
     return (
       <>
         <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          aria-controls="delete-menu"
-          aria-haspopup="true"
-          key={item}
-          onClick={handleDeleteClick.bind(this, item)}
-        >
-          Delete
-        </Button>
-        <Modal
-          aria-labelledby="delete-modal-title"
-          aria-describedby="delete-modal-description"
-          open={openDelete}
-          onClose={handleClickAwayDelete}
-        >
-          <div className={classes.paper}>
-            <h1>Delete</h1>
-            <h2>Owner Name </h2> <p>{item._id}</p>
-          </div>
-        </Modal>
-      </CardActions>
+          <Button
+            size="small"
+            color="primary"
+            aria-controls="delete-menu"
+            aria-haspopup="true"
+            key={item}
+            onClick={handleDeleteClick.bind(this, item)}
+          >
+            Delete
+          </Button>
+          <Modal
+            aria-labelledby="delete-modal-title"
+            aria-describedby="delete-modal-description"
+            open={openDelete}
+            onClose={handleClickAwayDelete}
+          >
+            <div className={classes.paper}>
+              <h1>Delete</h1>
+              <h2>Owner Name </h2> <p>{item._id}</p>
+            </div>
+          </Modal>
+        </CardActions>
       </>
     )
   }
-  function AuthedButtons({auth,item,index}) {
+  function AuthedButtons({ auth, item, index }) {
     return (
       <>
-      {auth.Uid==item.ownerId ? <DeleteButtons item={item}/> : <CustomerButtons  index={index}/>}
+        {auth.Uid == item.ownerId ? (
+          <DeleteButtons item={item} />
+        ) : (
+          <CustomerButtons index={index} />
+        )}
       </>
     )
   }
   function UnAuthedButtons() {
     return (
       <>
-      <CardActions>
-      <Button
-        size="small"
-        color="primary"
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleBuyButtonNoAuthClick.bind()}
-      >
-        Buy
-      </Button>
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={openPrice}
-        onClose={handleClickAwayPrice}
-      >
-        <div className={classes.paper}>
-          <h1>Please Log In First</h1>
-        </div>
-      </Modal>
-    </CardActions>
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleBuyButtonNoAuthClick.bind()}
+          >
+            Buy
+          </Button>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={openPrice}
+            onClose={handleClickAwayPrice}
+          >
+            <div className={classes.paper}>
+              <h1>Please Log In First</h1>
+            </div>
+          </Modal>
+        </CardActions>
       </>
     )
   }
@@ -247,7 +251,11 @@ export function ItemList({ items }) {
                   </div>
                 </Modal>
               </CardActionArea>
-              {auth.isAuth ? <AuthedButtons auth={auth} item={item} index={index}/> : <UnAuthedButtons />}
+              {auth.isAuth ? (
+                <AuthedButtons auth={auth} item={item} index={index} />
+              ) : (
+                <UnAuthedButtons />
+              )}
             </Card>
           </div>
         )
