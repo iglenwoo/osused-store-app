@@ -55,7 +55,6 @@ export function ItemList({ items }) {
     setOpenItem(items[index])
     setOpenCard(prev => !prev)
   }
-
   function handleClickPrice(index) {
     itemIndex = items[index]
     setOpenItem(items[index])
@@ -64,6 +63,7 @@ export function ItemList({ items }) {
   function handleBuyButtonNoAuthClick() {
     setOpenPrice(prev => !prev)
   }
+
   function handleDeleteClick(item) {
     var result = fetch(`${API_BASE_URL}/items/${item._id}`, {
       method: 'DELETE',
@@ -80,6 +80,38 @@ export function ItemList({ items }) {
         alert(err)
       })
   }
+
+  function AuthedBuyClick(itemIndex, authedflag) {
+    if (authedflag) {
+      return (
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={openPrice}
+          onClose={handleClickAwayPrice}
+        >
+          <div className={classes.paper}>
+            <h1>Excelent choice!</h1>
+            <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
+            <h2>Owner Mail </h2>
+            <p>{itemIndex.ownerMail}</p>
+          </div>
+        </Modal>
+      )
+    } else {
+      return (
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className={classes.paper}>
+            <h1>Please log in or sign up!</h1>
+          </div>
+        </Modal>
+      )
+    }
+  }
+
   function CustomerButtons({ index }) {
     return (
       <>
@@ -94,19 +126,7 @@ export function ItemList({ items }) {
           >
             Buy
           </Button>
-          <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={openPrice}
-            onClose={handleClickAwayPrice}
-          >
-            <div className={classes.paper}>
-              <h1>Excelent choice!</h1>
-              <h2>Owner Name </h2> <p>{itemIndex.ownerName}</p>
-              <h2>Owner Mail </h2>
-              <p>{itemIndex.ownerMail}</p>
-            </div>
-          </Modal>
+          <AuthedBuyClick item={index} authedflag={auth.isAuth} />
         </CardActions>
       </>
     )
