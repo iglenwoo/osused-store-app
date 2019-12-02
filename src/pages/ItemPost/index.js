@@ -69,6 +69,8 @@ function ComposedTextField() {
   const history = useHistory()
   const inputLabel = React.useRef(null)
   const [labelWidth, setLabelWidth] = React.useState(0)
+  const [image, setImageState] = React.useState(null)
+  const [imageName, setImageName] = React.useState(null)
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth)
   }, [])
@@ -86,6 +88,43 @@ function ComposedTextField() {
     state.description = undefined
     state.location = undefined
     state.price = undefined
+  }
+
+  const setImage = event => {
+    let date = new Date()
+    setImageName(
+      event.target.files[0].name +
+        '/' +
+        date.getMonth() +
+        '/' +
+        date.getDay() +
+        '/' +
+        date.getFullYear() +
+        '/' +
+        date.getHours()
+    )
+    setImageState(event.target.files[0])
+  }
+
+  const uploadImage = event => {
+    event.preventDefault()
+    const formData = new FormData()
+    formData.append('image-file', image)
+    fetch(`${API_BASE_URL}/image`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if (response.status !== 200) {
+          alert(response.statusText)
+          return
+        } else {
+          console.log('Here goes image')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const isItemInvalid = () => {
@@ -107,9 +146,26 @@ function ComposedTextField() {
     return true
   }
 
+  const downloadImage = event => {
+    event.preventDefault()
+    fetch(`${API_BASE_URL}/imgdownload`, {
+      method: 'GET',
+    })
+      .then(response => {
+        if (response.status !== 200) {
+          alert(response.statusText)
+          return
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   const handleSubmit = event => {
     event.preventDefault()
     if (!isItemInvalid()) return
+    uploadImage(event)
 
     let headers = new Headers({
       Accept: 'application/json',
@@ -124,6 +180,8 @@ function ComposedTextField() {
       location: state.location,
       description: state.description,
       ownerId: undefined,
+      imageName: imageName,
+      imageId: undefined,
     })
 
     fetch(`${API_BASE_URL}/items`, {
@@ -231,6 +289,14 @@ function ComposedTextField() {
             margin="normal"
             variant="outlined"
           />
+          <input
+            type="file"
+            name="image-file"
+            id="image-file"
+            class="custom-file-input"
+            onChange={setImage}
+          />
+
           <Button
             variant="contained"
             color="secondary"
@@ -242,6 +308,10 @@ function ComposedTextField() {
           >
             Add item
           </Button>
+          <Button type="button" onClick={downloadImage}>
+            Download
+          </Button>
+          <img id="img" style={{ display: 'block' }}></img>
         </form>
       </div>
     </Container>
