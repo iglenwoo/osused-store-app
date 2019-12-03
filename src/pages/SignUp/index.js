@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { API_BASE_URL } from '../../constants/routes'
+import { validateEmail } from '../../utils/common'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -44,7 +45,7 @@ export function SignUp(props) {
   const [password, setpassword] = useState('')
   const [checkpassword, setcheckpassword] = useState('')
 
-  function valipassword() {
+  function validatePassword() {
     return checkpassword === password && checkpassword.length > 0
   }
 
@@ -54,15 +55,16 @@ export function SignUp(props) {
       password.length > 0 &&
       fname.length > 0 &&
       Lname.length > 0 &&
-      valipassword()
+      validatePassword() &&
+      validateEmail(email)
     )
   }
 
   function displaychange() {
-    if (!valipassword()) {
+    if (!validateForm()) {
       return (
         <Typography component="h1" variant="caption" color="error">
-          The passwords do not match or one of the form is empty!
+          The passwords do not match, or email format is wrong!
         </Typography>
       )
     } else {
