@@ -45,7 +45,7 @@ export function SignUp(props) {
   const [password, setpassword] = useState('')
   const [checkpassword, setcheckpassword] = useState('')
 
-  function valipassword() {
+  function validatePassword() {
     return checkpassword === password && checkpassword.length > 0
   }
 
@@ -55,7 +55,7 @@ export function SignUp(props) {
       password.length > 0 &&
       fname.length > 0 &&
       Lname.length > 0 &&
-      valipassword() &&
+      validatePassword() &&
       validateEmail(email)
     )
   }
